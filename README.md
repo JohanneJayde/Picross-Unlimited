@@ -14,7 +14,7 @@ CSCD379 Final
 - These points are given out at the instructors discretion
 - It will be very difficult to obtain all 50 points, but if you go beyond the basic criteria it should not be difficult to obtain partial points
 - Some ways you may be able to obtain extra credit (doing multiple of these options will get you closer to 50 points)
-  - Implement auth (e.g. some kind of login system)
+  - Implement auth (e.g. some kind of login system) Alexa 
   - Do something with SignalR (e.g. two way chat app)
   - Write an interisting or complex algorithm (e.g. suggesting similar products or reccommendations on an E-Commerce site)
   - Include complex animations (e.g. a video game in the browser, player driven character animations)
