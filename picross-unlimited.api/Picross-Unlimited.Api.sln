@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "picross-unlimited.api", "picross-unlimited.api\picross-unlimited.api.csproj", "{9B18B867-6AB7-438C-BD7F-BCEEDFE9C12F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "picross-unlimted.tests", "picross-unlimted.web\picross-unlimted.tests.csproj", "{4CA3CDD8-43E7-4A49-A4D7-876EFAD803C5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9B18B867-6AB7-438C-BD7F-BCEEDFE9C12F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B18B867-6AB7-438C-BD7F-BCEEDFE9C12F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B18B867-6AB7-438C-BD7F-BCEEDFE9C12F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B18B867-6AB7-438C-BD7F-BCEEDFE9C12F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CA3CDD8-43E7-4A49-A4D7-876EFAD803C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CA3CDD8-43E7-4A49-A4D7-876EFAD803C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CA3CDD8-43E7-4A49-A4D7-876EFAD803C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CA3CDD8-43E7-4A49-A4D7-876EFAD803C5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {082A222C-AE65-44AA-A407-0F49646EAEB0}
+	EndGlobalSection
+EndGlobal
