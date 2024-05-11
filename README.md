@@ -1,4 +1,4 @@
-# Picross-Multiplayer
+# Picross-Unlimited
 
 Azure Site URL: https://polite-cliff-04894281e.5.azurestaticapps.net/
 
