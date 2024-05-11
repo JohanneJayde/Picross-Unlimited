@@ -1,4 +1,7 @@
 # Picross-Multiplayer
+
+Azure Site URL: https://polite-cliff-04894281e.5.azurestaticapps.net/
+
 CSCD379 Final
 
 ## Requirments
