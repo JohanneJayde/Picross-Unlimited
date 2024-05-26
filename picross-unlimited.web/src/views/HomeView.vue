@@ -1,9 +1,14 @@
-<script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
-</script>
-
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <div>
+    <h1>Welcome to the Home Page</h1>
+    <v-btn @click="showLoginDialog = true">Sign In</v-btn>
+    <SigninDialog v-model:visible="showLoginDialog" />
+  </div>
 </template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import SigninDialog from '../components/SignInDialogue.vue';
+
+const showLoginDialog = ref(false);
+</script>
