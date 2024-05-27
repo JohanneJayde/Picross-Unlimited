@@ -2,8 +2,6 @@
   <v-app>  
     <v-main>
       <RouterView></RouterView>
-      <v-container>
-      </v-container>
     </v-main>
   </v-app>
 </template>
