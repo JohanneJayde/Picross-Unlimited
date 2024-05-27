@@ -2,9 +2,9 @@
 using System.Data;
 using System.Security.Claims;
 using System;
-using Picross_Unlimited.Api.Models;
+using Picross_Unlimited.Web.Models;
     
-namespace Picross_Unlimited.Api.Identity;
+namespace Picross_Unlimited.Web.Identity;
 public static class IdentitySeed
 {
     public static async Task SeedAsync(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, AppDbContext db)

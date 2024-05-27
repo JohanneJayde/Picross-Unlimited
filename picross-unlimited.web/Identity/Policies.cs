@@ -2,7 +2,7 @@
 using System.Security.Claims;
 using System.ComponentModel;
 
-namespace Picross_Unlimited.Api.Identity;
+namespace Picross_Unlimited.Web.Identity;
 public static class Policies
 {
     public const string RandomAdmin = "RandomAdmin";

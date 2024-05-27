@@ -1,0 +1,6 @@
+@picross_unlimited.web_HostAddress = http://localhost:5276
+
+GET {{picross_unlimited.web_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

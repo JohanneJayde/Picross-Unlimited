@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Picross_Unlimited.Api.Migrations
+namespace Picross_Unlimited.Web.Migrations
 {
     /// <inheritdoc />
     public partial class InitialUserStuff : Migration

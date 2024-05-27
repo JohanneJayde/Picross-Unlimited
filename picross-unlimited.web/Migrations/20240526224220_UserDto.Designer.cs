@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Picross_Unlimited.Api.Models;
+using Picross_Unlimited.Web.Models;
 
 #nullable disable
 
-namespace Picross_Unlimited.Api.Migrations
+namespace Picross_Unlimited.Web.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240526231849_clearAppUser")]
-    partial class clearAppUser
+    [Migration("20240526224220_UserDto")]
+    partial class UserDto
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -158,12 +158,18 @@ namespace Picross_Unlimited.Api.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Picross_Unlimited.Api.Models.AppUser", b =>
+            modelBuilder.Entity("Picross_Unlimited.Web.Models.AppUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<double>("AverageAttempts")
+                        .HasColumnType("float");
+
+                    b.Property<int>("AverageSecondsPerGame")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -176,6 +182,9 @@ namespace Picross_Unlimited.Api.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<int>("GameCount")
+                        .HasColumnType("int");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -234,7 +243,7 @@ namespace Picross_Unlimited.Api.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Picross_Unlimited.Api.Models.AppUser", null)
+                    b.HasOne("Picross_Unlimited.Web.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -243,7 +252,7 @@ namespace Picross_Unlimited.Api.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Picross_Unlimited.Api.Models.AppUser", null)
+                    b.HasOne("Picross_Unlimited.Web.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -258,7 +267,7 @@ namespace Picross_Unlimited.Api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Picross_Unlimited.Api.Models.AppUser", null)
+                    b.HasOne("Picross_Unlimited.Web.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -267,7 +276,7 @@ namespace Picross_Unlimited.Api.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Picross_Unlimited.Api.Models.AppUser", null)
+                    b.HasOne("Picross_Unlimited.Web.Models.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

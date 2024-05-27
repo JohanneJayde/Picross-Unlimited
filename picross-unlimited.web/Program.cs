@@ -4,8 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
-using Picross_Unlimited.Api.Models;
-using Picross_Unlimited.Api.Identity;
+using Picross_Unlimited.Web.Models;
+using Picross_Unlimited.Web.Identity;
 
 
 var AllOrigins = "AllOrigins";
