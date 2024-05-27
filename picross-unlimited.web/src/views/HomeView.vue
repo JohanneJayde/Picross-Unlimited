@@ -3,9 +3,9 @@
     <v-row class = "justify-center align-center">
       <v-col cols="12" md="8">
         <v-card>
-          <v-card-title class="text-h2 pa-6">Welcome to Picross</v-card-title>
+          <v-card-title class="pa-6">Welcome to Picross</v-card-title>
           <v-card-text>
-            Embark on a journey through recent wordly wonders with our Replay and Stats section, where the last ten Wordles await your exploration.
+            Dive into our logic puzzle game where players fill in squares on a grid based on numbers along the edges to reveal a hidden picture!
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
