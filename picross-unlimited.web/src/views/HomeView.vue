@@ -1,9 +1,11 @@
 <template>
-  <div>
-    <h1>Welcome to the Home Page</h1>
-    <v-btn @click="showLoginDialog = true">Sign In</v-btn>
-    <SigninDialog v-model:visible="showLoginDialog" />
-  </div>
+  <v-app>
+    <v-main>
+      <v-container>
+        <RouterView />
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script setup lang="ts">
