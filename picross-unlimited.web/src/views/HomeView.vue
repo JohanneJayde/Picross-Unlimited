@@ -9,8 +9,8 @@
           <v-card-text class="text-center" style="display: block;">
             Dive into our logic puzzle game where players fill in squares on a grid based on numbers along the edges to reveal a hidden picture!
           </v-card-text>
-            <v-btn color="primary" @click="navigateTo('about')">About</v-btn>
-            <v-btn color="primary" @click="navigateTo('play')">Play Game</v-btn>
+            <v-btn color="#EF5350" @click="navigateTo('about')">About</v-btn>
+            <v-btn color="#EF5350" @click="navigateTo('play')">Play Game</v-btn>
         </v-card>
       </v-col>
     </v-row>
