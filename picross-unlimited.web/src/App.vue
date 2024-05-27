@@ -1,11 +1,5 @@
 <template>
-  <v-app>
-    <v-app-bar app color="primary" dark>
-      <v-toolbar-title>Picross Game</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <RouterLink to="/about">About</RouterLink>
-      <RouterLink to="/">Home</RouterLink>
-    </v-app-bar>
+  <v-app>  
     <v-main>
       <RouterView></RouterView>
       <v-container>
@@ -14,12 +8,18 @@
   </v-app>
 </template>
 
-<style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
+<style scoped>
+nav {
+  display: flex;
+  gap: 10px;
+}
+
+nav a {
+  text-decoration: none;
+  color: inherit;
+}
+
+nav a.v-btn {
+  color: #1976d2;
 }
 </style>
