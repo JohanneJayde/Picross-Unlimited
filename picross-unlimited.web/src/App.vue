@@ -1,41 +1,41 @@
 <template>
-  <v-app>  
-    <v-container>
-            <v-app-bar :elevation="2">
-            <template v-slot:prepend>
-              <v-app-bar-nav-icon variant="text" @click.stop=""></v-app-bar-nav-icon>
-            </template>
-             
-            <v-app-bar-title>Picross</v-app-bar-title>
-            <v-spacer></v-spacer>
-            <v-navigation-drawer
-            v-model="drawer"
-            :location="$vuetify.display.mobile ? 'bottom' : undefined"
-            temporary
-            >
-            <v-list>
-              <v-list-item>
-                <v-list-item-icon>
-                  <v-icon>mdi-home</v-icon>
-                </v-list-item-icon>
-                <v-list-item-content>
-                  <v-list-item-title @click="navigateTo('home')">Home</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
-            </v-list>
-          </v-navigation-drawer>           
-            </v-app-bar>
-      </v-container>
+  <v-app> 
+    <div class="text-h5 ml-5">
+          <v-icon
+            color="secondary"
+            @click="router.push('/')"
+            class="cursor-pointer"
+            >mdi-alpha-w</v-icon
+          >
+        </div> 
+    <v-app-bar app>
+      <v-app-bar-nav-icon @click.stop="showDrawer = !showDrawer" />
+      <v-toolbar-title>Picross Unlimited</v-toolbar-title>
+      <nav>
+        <v-btn @click="navigateTo('home')">Home</v-btn>
+        <v-btn @click="navigateTo('about')">About</v-btn>
+      </nav>
+    </v-app-bar>
+    <v-navigation-drawer v-model="showDrawer" location="left">
+      <v-list>
+        <v-list-item @click="navigateTo('home')">Home</v-list-item>
+        <v-list-item @click="navigateTo('about')">About</v-list-item>
+        <v-list-item @click="navigateTo('play')">Play</v-list-item>
+        <v-list-item @click="navigateTo('settings')">Settings</v-list-item>
+      </v-list>
+    </v-navigation-drawer>
     <v-main>
     
       <RouterView></RouterView>
     </v-main>
   </v-app>
 </template>
-<script setup>
+<script setup lang="ts">
 import { useRouter } from 'vue-router';
+import { ref } from 'vue';
 
 const router = useRouter();
+const showDrawer = ref(false);
 
 function navigateTo(page) {
   router.push({ name: page });
