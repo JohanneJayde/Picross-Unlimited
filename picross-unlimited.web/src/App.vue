@@ -1,16 +1,15 @@
 <template>
   <v-app> 
-    <div class="text-h5 ml-5">
-          <v-icon
-            color="secondary"
-            @click="router.push('/')"
-            class="cursor-pointer"
-            >mdi-alpha-w</v-icon
-          >
-        </div> 
     <v-app-bar app>
       <v-app-bar-nav-icon @click.stop="showDrawer = !showDrawer" />
-      <v-toolbar-title>Picross Unlimited</v-toolbar-title>
+      <v-toolbar-title @click="$router.push('/')" style="cursor: pointer">
+        <v-img
+          src="/applogo.svg"
+          alt="Logo"
+          max-width="180"
+          max-height="110"
+        ></v-img>
+      </v-toolbar-title>
       <nav>
         <v-btn @click="navigateTo('home')">Home</v-btn>
         <v-btn @click="navigateTo('about')">About</v-btn>

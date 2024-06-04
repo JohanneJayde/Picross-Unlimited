@@ -4,7 +4,7 @@
       <v-col cols="12" md="8">
         <v-card>
           <v-card-title class="text-h5 text-center pa-4"> About Page </v-card-title>
-          <v-card-text class="text-center" style="display: block">
+          <v-card-text class="text-center">
             This Project was made my Johanne McClennan, Spencer West, And Alexa Darrington. We knew
             how much Grant loves games so we wanted to make a fun one!
           </v-card-text>
@@ -17,7 +17,7 @@
     </v-row>
   </v-container>
 </template>
-<script setup>
+<script setup lang="ts">
 import { useRouter } from 'vue-router'
 
 const router = useRouter()

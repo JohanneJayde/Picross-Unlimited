@@ -4,7 +4,7 @@
         <v-col cols="12" md="8">
           <v-card>
             <v-card-title class="text-h5 text-center pa-4"> Picross </v-card-title>
-            <v-card-text class="text-center" style="display: block">
+            <v-card-text class="text-center">
               This is the game page 
             </v-card-text>
           </v-card>
@@ -12,7 +12,7 @@
       </v-row>
     </v-container>
   </template>
-  <script setup>
+  <script setup lang="ts">
   import { useRouter } from 'vue-router'
   
   const router = useRouter()
