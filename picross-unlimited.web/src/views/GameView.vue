@@ -1,0 +1,24 @@
+<template>
+    <v-container class="fill-height d-flex align-center justify-center">
+      <v-row justify="center">
+        <v-col cols="12" md="8">
+          <v-card>
+            <v-card-title class="text-h5 text-center pa-4"> Picross </v-card-title>
+            <v-card-text class="text-center" style="display: block">
+              This is the game page 
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+  </template>
+  <script setup>
+  import { useRouter } from 'vue-router'
+  
+  const router = useRouter()
+  
+  function navigateTo(page) {
+    router.push({ name: page })
+  }
+  </script>
+  
