@@ -13,36 +13,30 @@
       >
         {{ errorMessage }}
       </v-alert>
-      <v-card-text class="text-center align-center" color = "primary" border="left" colored-border prominent>
-          Sign in or register to customize your experience. You can save, load, add puzzles and create rooms for your friends!
-        </v-card-text>
+      <v-card-text class="text-center align-center">
+        Sign in or register to customize your experience. You can save, load, add puzzles and create
+        rooms for your friends!
+      </v-card-text>
       <v-tabs v-model="currentPage" align-tabs="center">
         <v-tab>Sign In</v-tab>
         <v-tab>Register</v-tab>
       </v-tabs>
       <v-card-text>
-        <v-text-field
-          v-model="email"
-          @keyup.stop
-          label="Email"
-          v-if="currentPage == 1"
-        />
+        <v-text-field v-model="email" @keyup.stop label="Email" v-if="currentPage == 1" />
         <v-text-field v-model="userName" @keyup.stop label="Username" />
         <v-text-field
           v-model="password"
           @keyup.stop
           label="Password"
           :type="showPassword ? 'text' : 'password'"
-          :append-inner-icon="
-            showPassword ? 'mdi-eye-off-outline' : 'mdi-eye-outline'
-          "
+          :append-inner-icon="showPassword ? 'mdi-eye-off-outline' : 'mdi-eye-outline'"
           @click:append-inner="showPassword = !showPassword"
         />
       </v-card-text>
       <v-card-actions>
         <v-spacer />
-        <v-btn color="primary" variant="tonal" @click="close"> Cancel </v-btn>
-        <v-btn color="primary" variant="flat" @click="signIn"> Sign In </v-btn>
+        <v-btn color="primary" variant="tonal" @click="close">Cancel</v-btn>
+        <v-btn color="primary" variant="flat" @click="signIn">Sign In</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -52,8 +46,7 @@
 import axios from "axios";
 import TokenService from "../scripts/tokenService";
 import { useRouter } from "vue-router";
-import { ref } from 'vue';
-
+import { ref } from "vue";
 
 const router = useRouter();
 const tokenService = new TokenService();
