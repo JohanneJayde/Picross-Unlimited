@@ -9,7 +9,7 @@
             along the edges to reveal a hidden picture!
           </v-card-text>
           <v-card-actions class="d-flex justify-center">
-            <v-btn color="white" class="bg-primary pa-2 px-5" to="/game" text="Play Game" />
+            <v-btn color="white" class="bg-primary pa-2 px-5" to="/game" text="Play Picross" />
           </v-card-actions>
         </v-card>
       </v-col>

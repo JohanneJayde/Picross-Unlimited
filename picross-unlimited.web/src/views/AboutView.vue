@@ -5,12 +5,12 @@
         <v-card>
           <v-card-title class="text-h5 text-center pa-4"> About Page </v-card-title>
           <v-card-text class="text-center">
-            This Project was made my Johanne McClennan, Spencer West, And Alexa Darrington. We knew
+            This Project was made my Johanne McClennan, Spencer West, and Alexa Darrington. We knew
             how much Grant loves games so we wanted to make a fun one!
           </v-card-text>
           <v-card-actions class="d-flex justify-center">
             <v-btn color="white" class="bg-primary pa-2 px-5" to="/" text="Go Home" />
-            <v-btn color="white" class="bg-primary pa-2 px-5" to="/game" text="Play Game" />
+            <v-btn color="white" class="bg-primary pa-2 px-5" to="/game" text="Play Picross" />
           </v-card-actions>
         </v-card>
       </v-col>
