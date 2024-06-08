@@ -1,5 +1,5 @@
 <template>
-  <v-app> 
+  <v-app>
     <v-app-bar app>
       <v-app-bar-nav-icon @click.stop="showDrawer = !showDrawer" />
       <v-toolbar-title @click="$router.push('/')" style="cursor: pointer">
@@ -10,6 +10,15 @@
           max-height="110"
         ></v-img>
       </v-toolbar-title>
+      <v-btn v-if="$vuetify.display.smAndUp" @click="showLoginLogOut">
+        {{ tokenService.isLoggedIn() ? tokenService.getUserName() : "Log In" }}
+      </v-btn>
+      <v-btn
+        v-else
+        @click="showLoginLogOut"
+        :icon="tokenService.isLoggedIn() ? 'mdi-account' : 'mdi-login'"
+      />
+
       <nav>
         <v-btn @click="navigateTo('home')">Home</v-btn>
         <v-btn @click="navigateTo('about')">About</v-btn>
@@ -23,21 +32,53 @@
         <v-list-item @click="navigateTo('settings')">Settings</v-list-item>
       </v-list>
     </v-navigation-drawer>
+    <SignInDialog v-model="showSignInDialog" />
+    <ConfirmDialog
+      v-model="showConfirmDialog"
+      confirm-message="Are you sure you want to logout?"
+      confirmTitle="Log Out"
+      confirmAction="Log Out"
+      @updated="logout"
+    />
     <v-main>
-    
       <RouterView></RouterView>
     </v-main>
   </v-app>
 </template>
+
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
+import TokenService from "./scripts/tokenService";
+import SignInDialog from "@/components/SignInDialog.vue";
+import ConfirmDialog from "@/components/ConfirmDialog.vue";
 
 const router = useRouter();
 const showDrawer = ref(false);
+const showSignInDialog = ref(false);
+const showConfirmDialog = ref(false);
+const tokenService = new TokenService();
 
-function navigateTo(page) {
+function navigateTo(page: string) {
   router.push({ name: page });
+}
+
+function showLoginLogOut() {
+  console.log('showLoginLogOut called');
+  if (localStorage.getItem("token")) {
+    console.log('Token found, showing confirm dialog');
+    showConfirmDialog.value = true;
+  } else {
+    console.log('No token found, showing sign-in dialog');
+    showSignInDialog.value = true;
+  }
+}
+
+function logout() {
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+
+  router.push("/");
 }
 </script>
 
