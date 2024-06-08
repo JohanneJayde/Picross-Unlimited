@@ -11,7 +11,7 @@
         ></v-img>
       </v-toolbar-title>
       <v-btn v-if="$vuetify.display.smAndUp" @click="showLoginLogOut">
-        <v-icon left>mdi-login</v-icon>
+        <v-icon left>mdi-account-cowboy-hat</v-icon>
 
         {{ tokenService.isLoggedIn() ? tokenService.getUserName() : "Log In" }}
       </v-btn>
