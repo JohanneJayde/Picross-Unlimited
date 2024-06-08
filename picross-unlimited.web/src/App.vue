@@ -64,12 +64,9 @@ function navigateTo(page: string) {
 }
 
 function showLoginLogOut() {
-  console.log('showLoginLogOut called');
   if (localStorage.getItem("token")) {
-    console.log('Token found, showing confirm dialog');
     showConfirmDialog.value = true;
   } else {
-    console.log('No token found, showing sign-in dialog');
     showSignInDialog.value = true;
   }
 }
