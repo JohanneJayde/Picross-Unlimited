@@ -11,6 +11,8 @@
         ></v-img>
       </v-toolbar-title>
       <v-btn v-if="$vuetify.display.smAndUp" @click="showLoginLogOut">
+        <v-icon left>mdi-login</v-icon>
+
         {{ tokenService.isLoggedIn() ? tokenService.getUserName() : "Log In" }}
       </v-btn>
       <v-btn
@@ -18,11 +20,6 @@
         @click="showLoginLogOut"
         :icon="tokenService.isLoggedIn() ? 'mdi-account' : 'mdi-login'"
       />
-
-      <nav>
-        <v-btn @click="navigateTo('home')">Home</v-btn>
-        <v-btn @click="navigateTo('about')">About</v-btn>
-      </nav>
     </v-app-bar>
     <v-navigation-drawer v-model="showDrawer" location="left">
       <v-list>
