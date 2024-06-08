@@ -26,7 +26,9 @@
         <v-list-item @click="navigateTo('home')">Home</v-list-item>
         <v-list-item @click="navigateTo('about')">About</v-list-item>
         <v-list-item @click="navigateTo('game')">Play</v-list-item>
+        <v-list-item @click="navigateTo('player')">Profile</v-list-item>
         <v-list-item @click="navigateTo('settings')">Settings</v-list-item>
+
       </v-list>
     </v-navigation-drawer>
     <SignInDialog v-model="showSignInDialog" />
