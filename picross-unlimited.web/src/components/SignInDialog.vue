@@ -13,6 +13,9 @@
       >
         {{ errorMessage }}
       </v-alert>
+      <v-card-text class="text-center align-center" color = "primary" border="left" colored-border prominent>
+          Sign in or register to customize your experience. You can save, load, add puzzles and create rooms for your friends!
+        </v-card-text>
       <v-tabs v-model="currentPage" align-tabs="center">
         <v-tab>Sign In</v-tab>
         <v-tab>Register</v-tab>
