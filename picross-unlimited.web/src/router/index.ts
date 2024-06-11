@@ -9,25 +9,22 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'Home',
       component: index
     },
     {
       path: '/About',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
+      name: 'About',
       component: About
     },
     {
       path: '/Game',
-      name: 'game',
+      name: 'Game',
       component: Game
     },
     {
       path: '/Player',
-      name: 'player',
+      name: 'Player',
       component: Player
     }
   ]
