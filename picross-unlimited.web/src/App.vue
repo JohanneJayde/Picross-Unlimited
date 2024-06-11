@@ -19,22 +19,22 @@
     <v-main>
       <RouterView />
     </v-main>
+    <v-navigation-drawer v-model="showDrawer" location="left">
+      <v-list>
+        <v-list-item to="about">About</v-list-item>
+        <v-list-item to="game">Play</v-list-item>
+        <v-list-item to="player">Profile</v-list-item>
+      </v-list>
+    </v-navigation-drawer>
+    <SignInDialog v-model="showSignInDialog" />
+    <ConfirmDialog
+      v-model="showConfirmDialog"
+      confirm-message="Are you sure you want to logout?"
+      confirmTitle="Log Out"
+      confirmAction="Log Out"
+      @updated="logout"
+    />
   </v-app>
-  <v-navigation-drawer v-model="showDrawer" location="left">
-    <v-list>
-      <v-list-item to="about">About</v-list-item>
-      <v-list-item to="game">Play</v-list-item>
-      <v-list-item to="player">Profile</v-list-item>
-    </v-list>
-  </v-navigation-drawer>
-  <SignInDialog v-model="showSignInDialog" />
-  <ConfirmDialog
-    v-model="showConfirmDialog"
-    confirm-message="Are you sure you want to logout?"
-    confirmTitle="Log Out"
-    confirmAction="Log Out"
-    @updated="logout"
-  />
 </template>
 
 <script setup lang="ts">
