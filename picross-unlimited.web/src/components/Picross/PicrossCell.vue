@@ -7,6 +7,7 @@
     @click="handleState"
     @contextmenu.prevent="handleRightClick"
     :icon="chosenIcon"
+    :disabled="type === CellType.NonPlayable"
   />
 </template>
 
@@ -18,18 +19,26 @@
 
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
+import { CellState, CellType } from '@/scripts/enums'
 
-enum CellState {
-  Empty,
-  Filled,
-  Marked
-}
+const props = withDefaults(
+  defineProps<{
+    type: CellType
+  }>(),
+  {
+    type: CellType.Playable
+  }
+)
 
 const chosenIcon = ref('')
 
 const state = ref(CellState.Empty)
 
 const stateColor = computed(() => {
+  if (props.type === CellType.Hint) {
+    return 'pink'
+  }
+
   switch (state.value) {
     case CellState.Empty:
       return 'white'
