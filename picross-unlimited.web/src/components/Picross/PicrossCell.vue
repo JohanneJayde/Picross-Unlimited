@@ -7,13 +7,29 @@
     @click="handleState"
     @contextmenu.prevent="handleRightClick"
     :icon="chosenIcon"
-    :disabled="type === CellType.NonPlayable"
+    :class="[
+      type !== CellType.Playable ? 'no-pointer' : '',
+      type === CellType.NonPlayable ? 'non-playable' : '',
+      type === CellType.Hint ? 'hint' : ''
+    ]"
+    flat
   />
 </template>
 
 <style scoped lang="scss">
 .v-btn {
   border: 1px solid grey;
+}
+.no-pointer {
+  pointer-events: none;
+}
+
+.non-playable {
+  border: none;
+  display: hidden;
+}
+
+.hint {
 }
 </style>
 
@@ -36,14 +52,14 @@ const state = ref(CellState.Empty)
 
 const stateColor = computed(() => {
   if (props.type === CellType.Hint) {
-    return 'pink'
+    return '#add8e6'
   }
 
   switch (state.value) {
     case CellState.Empty:
       return 'white'
     default:
-      return 'blue'
+      return 'primary'
   }
 })
 
