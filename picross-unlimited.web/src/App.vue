@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app>
+    <v-app-bar app flat class="border-md">
       <v-app-bar-nav-icon @click.stop="showDrawer = !showDrawer" />
       <v-toolbar-title @click="$router.push('/')" style="cursor: pointer">
         <v-img src="/applogo.svg" alt="Logo" max-width="180" max-height="110"></v-img>
