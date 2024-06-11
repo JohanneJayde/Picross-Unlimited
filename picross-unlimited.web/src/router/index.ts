@@ -13,7 +13,7 @@ const router = createRouter({
       component: index
     },
     {
-      path: '/about',
+      path: '/About',
       name: 'about',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
@@ -21,12 +21,12 @@ const router = createRouter({
       component: About
     },
     {
-      path: '/game',
+      path: '/Game',
       name: 'game',
       component: Game
     },
     {
-      path: '/player',
+      path: '/Player',
       name: 'player',
       component: Player
     }
