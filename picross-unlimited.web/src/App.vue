@@ -18,11 +18,9 @@
     </v-app-bar>
     <v-navigation-drawer v-model="showDrawer" location="left">
       <v-list>
-        <v-list-item @click="navigateTo('home')">Home</v-list-item>
-        <v-list-item @click="navigateTo('about')">About</v-list-item>
-        <v-list-item @click="navigateTo('game')">Play</v-list-item>
-        <v-list-item @click="navigateTo('player')">Profile</v-list-item>
-        <v-list-item @click="navigateTo('settings')">Settings</v-list-item>
+        <v-list-item to="about">About</v-list-item>
+        <v-list-item to="game">Play</v-list-item>
+        <v-list-item to="player">Profile</v-list-item>
       </v-list>
     </v-navigation-drawer>
     <SignInDialog v-model="showSignInDialog" />
@@ -71,19 +69,3 @@ function logout() {
   router.push('/')
 }
 </script>
-
-<style scoped>
-nav {
-  display: flex;
-  gap: 10px;
-}
-
-nav a {
-  text-decoration: none;
-  color: inherit;
-}
-
-nav a.v-btn {
-  color: #1976d2;
-}
-</style>

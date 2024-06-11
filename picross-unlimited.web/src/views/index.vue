@@ -1,6 +1,6 @@
 <template>
   <v-container class="fill-height d-flex align-center justify-center">
-    <v-row class = "justify-center">
+    <v-row class="justify-center">
       <v-col cols="12" md="8">
         <v-card class="pa-6">
           <v-img src="/homelogo.svg" alt="Logo"></v-img>
@@ -17,16 +17,6 @@
   </v-container>
 </template>
 
-<script setup lang="ts">
-import { useRouter } from 'vue-router'
+<script setup lang="ts"></script>
 
-const router = useRouter()
-
-function navigateTo(page) {
-  router.push({ name: page })
-}
-</script>
-
-<style scoped>
-
-</style>
+<style scoped></style>
