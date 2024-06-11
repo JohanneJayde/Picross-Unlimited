@@ -59,9 +59,6 @@ builder.Services.AddSwaggerGen(config =>
 }
 );
 
-//builder.Services.AddScoped<WordOfTheDayService>();
-//builder.Services.AddScoped<PlayerServices>();
-//builder.Services.AddScoped<GameService>();
 
 // Identity Services
 builder.Services.AddIdentityCore<AppUser>(options => options.SignIn.RequireConfirmedAccount = false)
@@ -91,9 +88,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 //Add Policies
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy(Policies.RandomAdmin, Policies.RandomAdminPolicy);
-    //options.AddPolicy("IsGrantPolicy", policy => policy.RequireRole("Grant"));
-    //options.AddPolicy(Policies.EditWord, Policies.EditWordPolicy);
 });
 
 

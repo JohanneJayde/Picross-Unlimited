@@ -3,17 +3,12 @@
     <v-app-bar app>
       <v-app-bar-nav-icon @click.stop="showDrawer = !showDrawer" />
       <v-toolbar-title @click="$router.push('/')" style="cursor: pointer">
-        <v-img
-          src="/applogo.svg"
-          alt="Logo"
-          max-width="180"
-          max-height="110"
-        ></v-img>
+        <v-img src="/applogo.svg" alt="Logo" max-width="180" max-height="110"></v-img>
       </v-toolbar-title>
       <v-btn v-if="$vuetify.display.smAndUp" @click="showLoginLogOut">
         <v-icon left>mdi-account-cowboy-hat</v-icon>
 
-        {{ tokenService.isLoggedIn() ? tokenService.getUserName() : "Log In" }}
+        {{ tokenService.isLoggedIn() ? tokenService.getUserName() : 'Log In' }}
       </v-btn>
       <v-btn
         v-else
@@ -28,7 +23,6 @@
         <v-list-item @click="navigateTo('game')">Play</v-list-item>
         <v-list-item @click="navigateTo('player')">Profile</v-list-item>
         <v-list-item @click="navigateTo('settings')">Settings</v-list-item>
-
       </v-list>
     </v-navigation-drawer>
     <SignInDialog v-model="showSignInDialog" />
@@ -46,35 +40,35 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
-import { ref } from 'vue';
-import TokenService from "./scripts/tokenService";
-import SignInDialog from "@/components/SignInDialog.vue";
-import ConfirmDialog from "@/components/ConfirmDialog.vue";
+import { useRouter } from 'vue-router'
+import { ref } from 'vue'
+import TokenService from './scripts/tokenService'
+import SignInDialog from '@/components/SignInDialog.vue'
+import ConfirmDialog from '@/components/ConfirmDialog.vue'
 
-const router = useRouter();
-const showDrawer = ref(false);
-const showSignInDialog = ref(false);
-const showConfirmDialog = ref(false);
-const tokenService = new TokenService();
+const router = useRouter()
+const showDrawer = ref(false)
+const showSignInDialog = ref(false)
+const showConfirmDialog = ref(false)
+const tokenService = new TokenService()
 
 function navigateTo(page: string) {
-  router.push({ name: page });
+  router.push({ name: page })
 }
 
 function showLoginLogOut() {
-  if (localStorage.getItem("token")) {
-    showConfirmDialog.value = true;
+  if (localStorage.getItem('token')) {
+    showConfirmDialog.value = true
   } else {
-    showSignInDialog.value = true;
+    showSignInDialog.value = true
   }
 }
 
 function logout() {
-  localStorage.removeItem("token");
-  localStorage.removeItem("user");
+  localStorage.removeItem('token')
+  localStorage.removeItem('user')
 
-  router.push("/");
+  router.push('/')
 }
 </script>
 

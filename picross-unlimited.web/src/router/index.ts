@@ -1,7 +1,7 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
-import AboutView from '../views/AboutView.vue';
-import GameView from '../views/GameView.vue';
+import { createRouter, createWebHistory } from 'vue-router'
+import HomeView from '../views/HomeView.vue'
+import AboutView from '../views/AboutView.vue'
+import GameView from '../views/GameView.vue'
 import Player from '../views/Player.vue'
 
 const router = createRouter({
@@ -31,6 +31,6 @@ const router = createRouter({
       component: Player
     }
   ]
-});
+})
 
-export default router;
+export default router

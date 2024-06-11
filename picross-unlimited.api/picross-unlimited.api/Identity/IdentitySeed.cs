@@ -19,50 +19,12 @@ public static class IdentitySeed
     private static async Task SeedRolesAsync(RoleManager<IdentityRole> roleManager)
     {
         // Seed Roles
-        if (!await roleManager.RoleExistsAsync(Roles.Admin))
-        {
-            await roleManager.CreateAsync(new IdentityRole(Roles.Admin));
-        }
-        // Seed Roles
-        if (!await roleManager.RoleExistsAsync(Roles.Awesome))
-        {
-            await roleManager.CreateAsync(new IdentityRole(Roles.Awesome));
-        }
+
     }
 
     private static async Task SeedAdminUserAsync(UserManager<AppUser> userManager)
     {
         // Seed Admin User
-        if (await userManager.FindByEmailAsync("Admin@intellitect.com") == null)
-        {
-            AppUser user = new AppUser
-            {
-                UserName = "Admin@intellitect.com",
-                Email = "Admin@intellitect.com"
-            };
 
-            IdentityResult result = userManager.CreateAsync(user, "P@ssw0rd123").Result;
-
-            if (result.Succeeded)
-            {
-                await userManager.AddToRoleAsync(user, Roles.Admin);
-            }
-        }
-
-        if (await userManager.FindByEmailAsync("Awesome@intellitect.com") == null)
-        {
-            AppUser user = new AppUser
-            {
-                UserName = "Awesome@intellitect.com",
-                Email = "Awesome@intellitect.com"
-            };
-
-            IdentityResult result = userManager.CreateAsync(user, "P@ssw0rd123").Result;
-
-            if (result.Succeeded)
-            {
-                await userManager.AddToRoleAsync(user, Roles.Awesome);
-            }
-        }
     }
 }
