@@ -11,5 +11,16 @@
       </v-col>
     </v-row>
   </v-container>
+  <v-container class="d-flex align-center justify-center">
+  <v-row justify="center">
+      <v-card>
+        <v-progress-circular
+        color="green"
+        model-value="100"
+        />  
+           
+      </v-card>
+    </v-row>
+  </v-container>
 </template>
 <script setup lang="ts"></script>

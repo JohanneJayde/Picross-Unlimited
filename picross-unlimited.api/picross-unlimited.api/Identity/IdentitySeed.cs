@@ -38,6 +38,7 @@ public static class IdentitySeed
             Email = "passw0rd123#"
 
         };
+        modelBuilder.Entity<AppUser>().HasData(user);
 
     }
 }
