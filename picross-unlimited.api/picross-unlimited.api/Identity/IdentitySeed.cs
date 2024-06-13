@@ -20,25 +20,62 @@ public static class IdentitySeed
     private static async Task SeedRolesAsync(RoleManager<IdentityRole> roleManager)
     {
         // Seed Roles
+        if(!await roleManager.RoleExistsAsync(Roles.Admin))
+        {
+            await roleManager.CreateAsync(new IdentityRole(Roles.Admin));
+        }
 
     }
 
     private static async Task SeedAdminUserAsync(UserManager<AppUser> userManager)
     {
         // Seed Admin User
+        if(await userManager.FindByEmailAsync("Admin@Admin.com") == null)
+        {
+            AppUser user = new AppUser
+            {
+                ProfileColor = "Secondary",
+                ProfileIcon = "\\eb3b",
+                UserName = "Admin",
+                Email = "Admin@Admin.com"
+            };
+            IdentityResult result = userManager.CreateAsync(user, "Password123").Result;
+
+            if(result.Succeeded)
+            {
+                await userManager.CreateAsync(user, Roles.Admin);
+            }
+        }
 
     }
-    private static async Task SeedUserAccountAsync(ModelBuilder modelBuilder)
+    //i don't think this is needed. Need second opinion. Creates a default user
+    private static async Task SeedUserAccountAsync(UserManager<AppUser> appUser, RoleManager<IdentityRole> roleManager, AppDbContext context )
     {
-        AppUser user = new AppUser
+        var userEmails = new[]
         {
-            ProfileIcon = "\\eb3b",
-            ProfileColor = "Primary",
-            UserName = "new_user",
-            Email = "passw0rd123#"
-
+            new {UserName = "Admin", Email = "Admin@Admin.com", Role = "Admin", ProfileColor = "Secondary", ProfileIcon = "\\eb3b"}
         };
-        modelBuilder.Entity<AppUser>().HasData(user);
+        foreach(var allUsers in userEmails)
+        {
+            if(!context.Users.Any( u => u.UserName == allUsers.UserName))
+            {
+                AppUser user = new AppUser
+                {
+                    ProfileIcon = "\\eb3b",
+                    ProfileColor = "Primary",
+                    UserName = "new_user",
+                    Email = "default@default.com"
+
+                };
+                var result = await appUser.CreateAsync(user, allUsers.Email);
+                if(result.Succeeded)
+                {
+                    await appUser.AddToRoleAsync(user, allUsers.Role);
+                }
+            }
+
+        }
+       
 
     }
 }
