@@ -29,6 +29,10 @@ const props = defineProps<{
   solution: number[][]
 }>()
 
+const emits = defineEmits<{
+  (e: 'playerUpdate', values: number[]): void
+}>()
+
 const halfCeiling =
   props.solution[0].length % 2 != 0
     ? Math.floor(props.solution[0].length * 0.5) + 1
@@ -115,6 +119,10 @@ function getCorrectState(row: number, col: number) {
 }
 
 function updateGame(row: number, col: number, state: number) {
-  console.log('updated game value', row, col, state)
+  const trueRow = row - halfCeiling
+  const trueCol = col - halfCeiling
+
+  const updatedArray = [trueRow, trueCol, state]
+  emits('playerUpdate', updatedArray)
 }
 </script>
