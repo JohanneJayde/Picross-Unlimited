@@ -17,7 +17,7 @@ export default class TokenService {
   public getUserName() {
     const token = this.getToken()
     if (token === '') {
-      return ''
+      return 'Guest'
     }
     console.log(JSON.parse(atob(token.split('.')[1])))
     return JSON.parse(atob(token.split('.')[1])).userName

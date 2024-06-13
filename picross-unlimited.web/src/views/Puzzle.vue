@@ -30,11 +30,13 @@ import type Puzzle from '../models'
 import { useRoute } from 'vue-router'
 import PicrossBoard from '@/components/Picross/PicrossBoard.vue'
 import { Picross, GameState } from '@/scripts/picross'
+import TokenService from '@/scripts/tokenService'
 
 const gamePuzzle = ref<Puzzle>()
 const router = useRoute()
 const Game = reactive<Picross>(new Picross())
 const mistakeMode = ref(false)
+const tokenService = new TokenService()
 
 
 const count = ref(0);
@@ -44,6 +46,26 @@ function updateGameState(values: number[]) {
   Game.updatePlayerState(values)
   count.value++
 }
+
+watch(Game,
+  () => {
+    if (Game.gameState != GameState.Playing) {
+      Axios.post(`/Game/Post/`, 
+      { 
+          username: tokenService.getUserName(),
+          puzzleId: gamePuzzle.value.id,
+          isWin: Game.gameState == GameState.Won,
+          numberOfClicks: count.value
+      })
+        .then(() => {
+          console.log('Game recorded')
+        })
+        .catch((error) => {
+          console.error('Error recording win:', error)
+        })
+    }
+  }
+)
 
 
 onMounted(() => {

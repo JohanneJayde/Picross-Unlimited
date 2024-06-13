@@ -21,3 +21,11 @@ export default interface UpdatePuzzle {
   maxClicks: number
 
 }
+
+export default interface Game {
+  username : string
+  isWin : boolean
+  numberOfClicks : number
+  puzzleId : number
+
+}
