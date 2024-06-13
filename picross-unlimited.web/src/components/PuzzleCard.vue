@@ -15,7 +15,7 @@
     <v-card-actions>
       <v-btn :to="`Puzzle/${props.puzzle.id}`">Play</v-btn>
       <v-btn v-if="EditMode" :to="`EditPuzzle/${props.puzzle.id}`">Edit</v-btn>
-      <v-btn v-if="EditMode">Delete</v-btn>
+      <v-btn v-if="EditMode" @click="$emit('delete', props.puzzle.id)">Delete</v-btn>
 
     </v-card-actions>
   </v-card>
@@ -33,6 +33,10 @@ const props = withDefaults(
     EditMode: false
   }
 )
+
+defineEmits<{
+  (e: 'delete', puzzleId : number): void
+}>()
 
 const formattedDate = formatDate(new Date(props.puzzle.dateCreated), 'MMMM do, yyyy')
 

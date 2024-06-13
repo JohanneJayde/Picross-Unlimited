@@ -48,4 +48,12 @@ public class PuzzleController(PuzzleService PuzzleService) : Controller
         return puzzleId;
     }
 
+    [HttpDelete("DeletePuzzle")]
+    public async Task<bool> Delete(int puzzleId)
+    {
+        bool isSuccessful = await PuzzleService.DeletePuzzle(puzzleId);
+
+        return isSuccessful;
+    }
+
 }

@@ -9,7 +9,7 @@
         
         <v-btn class="ma-3" @click="showAddPuzzleDialog = true" color="primary">Create Puzzle</v-btn>
 
-        <PuzzleGroup :puzzles="Puzzles" :edit="true" />
+        <PuzzleGroup :puzzles="Puzzles" :edit="true" @deletePuzzle="removePuzzle" />
       </v-col>
     </v-row>
   </v-container>
@@ -50,5 +50,23 @@ Axios.get('Puzzle/Users/' + tokenService.getSub())
   .catch((error) => {
     console.error('Error fetching puzzles:', error)
   })
+
+function removePuzzle(id: number) {
+  console.log('Deleting puzzle:', id)
+  Axios.delete('Puzzle/DeletePuzzle?puzzleId=' + id)
+    .then((response) => {
+      console.log('Puzzle deleted:', response.data)
+
+      if(response.data) {
+        Puzzles.value = Puzzles.value.filter((puzzle) => puzzle.id !== id)
+      } else {
+        console.error('Error deleting puzzle:', response.data)
+      }
+
+    })
+    .catch((error) => {
+      console.error('Error deleting puzzle:', error)
+    })
+}
 
 </script>

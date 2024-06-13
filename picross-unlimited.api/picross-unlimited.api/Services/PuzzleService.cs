@@ -119,5 +119,23 @@ namespace Picross_Unlimited.Api.Services
             
             return Id;
         }
+
+        public async Task<bool> DeletePuzzle(int puzzleId)
+        {
+            var puzzle = await Db.Puzzles.FirstOrDefaultAsync(puzzle => puzzle.PuzzleId == puzzleId);
+
+            if(puzzle is null)
+            {
+                return false;
+            }
+
+            Db.Puzzles.Remove(puzzle);
+
+
+            await Db.SaveChangesAsync();
+
+            return true;
+
+        }
     }
 }
