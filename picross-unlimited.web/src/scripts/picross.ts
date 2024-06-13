@@ -1,4 +1,5 @@
 import type Puzzle from '@/models'
+import Axios from 'axios'
 import _ from 'lodash'
 
 export class Picross {
@@ -44,8 +45,9 @@ export class Picross {
 
   public updatePlayerState(values: number[]): void {
     this.playerStates[values[0]][values[1]] = values[2]
-
-    this.checkForWin()
+    if (this.gameState === GameState.Playing) {
+      this.checkForWin()
+    }
   }
 
   public checkForWin() {
@@ -54,7 +56,18 @@ export class Picross {
     }
   }
 
-  public SavePuzzle() {}
+  public async SavePuzzle(title: string, description: string, difficulty: number): boolean {
+    const isSuccessful = Axios.post('Puzzle/SavePuzzle', {
+      id: this.puzzle?.id,
+      title: title,
+      description: description,
+      difficulty: difficulty,
+      solution: JSON.stringify(this.solution)
+    }).then((response) => {
+      return response.data
+    })
+    return isSuccessful
+  }
 }
 
 export enum GameState {

@@ -56,6 +56,8 @@ onMounted(() => {
         description: puzzle.description,
         difficulty: puzzle.difficulty,
         size: puzzle.size,
+        creator: puzzle.creator,
+        dateCreated: puzzle.dateCreated,
         solution: JSON.parse(puzzle.solution)
       }
       Game.setSize(gamePuzzle.value.size)

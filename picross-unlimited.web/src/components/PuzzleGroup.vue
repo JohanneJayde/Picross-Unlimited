@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col v-for="(puzzle, i) in puzzles" :key="i">
+    <v-col v-for="(puzzle, i) in puzzles" :key="i" cols="4">
       <PuzzleCard :puzzle="puzzle" :EditMode="edit" />
     </v-col>
   </v-row>

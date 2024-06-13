@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Picross_Unlimited.Api.Dtos;
+using Picross_Unlimited.Api.Models;
 using Picross_Unlimited.Api.Services;
 
 namespace Picross_Unlimited.Api.Controllers;
@@ -31,7 +32,7 @@ public class PuzzleController(PuzzleService PuzzleService) : Controller
         return puzzles;
     }
 
-    [HttpPost("/SavePuzzle")]
+    [HttpPost("SavePuzzle")]
 
     public async Task<bool> Save(UpdatePuzzleDto puzzle)
     {
@@ -39,4 +40,12 @@ public class PuzzleController(PuzzleService PuzzleService) : Controller
 
         return isSuccess;
     }
+
+    [HttpPost("CreatePuzzle")]
+    public async Task<bool> Create(NewPuzzleDto puzzle) 
+    { 
+        bool isSuccess = await PuzzleService.CreatePuzzle(puzzle);
+        return isSuccess;
+    }
+
 }

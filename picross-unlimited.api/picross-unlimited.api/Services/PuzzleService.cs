@@ -86,7 +86,6 @@ namespace Picross_Unlimited.Api.Services
                 puzzle.Solution = puzzleDto.Solution;
                 puzzle.Difficulty = puzzleDto.Difficulty;
                 puzzle.Title = puzzleDto.Title;
-                puzzle.Size = puzzleDto.Size;
                 puzzle.Description = puzzleDto.Description;
 
                 await Db.SaveChangesAsync();
@@ -96,5 +95,24 @@ namespace Picross_Unlimited.Api.Services
             return false;
         }
 
+        public async Task<bool> CreatePuzzle(NewPuzzleDto puzzleDto)
+        {
+            var puzzle = new Puzzle()
+            {
+                Title = puzzleDto.Title,
+                Description = puzzleDto.Description,
+                Difficulty = puzzleDto.Difficulty,
+                Size = puzzleDto.Size,
+                Solution = puzzleDto.Solution,
+                DateCreated = DateOnly.FromDateTime(puzzleDto.DateCreated),
+                Creator = puzzleDto.Creator
+            };
+
+            await Db.AddAsync(puzzle);
+
+            await Db.SaveChangesAsync();
+
+            return true;
+        }
     }
 }

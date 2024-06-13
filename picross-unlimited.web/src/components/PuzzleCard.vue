@@ -1,8 +1,10 @@
 <template>
-  <v-card color="white" class="border" width="500" rouned>
+  <v-card color="white" class="border" rouned>
     <v-card-title>{{ props.puzzle.title }}</v-card-title>
     <v-card-subtitle>{{ props.puzzle.description }}</v-card-subtitle>
     <v-card-text> Size: {{ props.puzzle.size }} </v-card-text>
+    <v-card-text> Creator: {{ props.puzzle.creator }} </v-card-text>
+    <v-card-text> Date Created: {{ formattedDate }} </v-card-text>
 
     <v-card-text>
       <v-progress-circular :model-value="difficulty * 10" :size="90" :width="15" color="red">
@@ -18,7 +20,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type Puzzle from '../models'
-
+import { formatDate } from 'date-fns'
 const props = withDefaults(
   defineProps<{
     puzzle: Puzzle
@@ -28,6 +30,8 @@ const props = withDefaults(
     EditMode: false
   }
 )
+
+const formattedDate = formatDate(new Date(props.puzzle.dateCreated), 'MMMM do, yyyy')
 
 const difficulty = ref<number>(props.puzzle.difficulty)
 </script>
