@@ -1,3 +1,4 @@
+import type Puzzle from '@/models'
 import _ from 'lodash'
 
 export class Picross {
@@ -5,6 +6,7 @@ export class Picross {
   public playerStates: number[][]
   public size: number
   public gameState: GameState
+  public puzzle: Puzzle | undefined
 
   constructor() {
     this.solution = []
@@ -29,6 +31,10 @@ export class Picross {
   }
   public setSize(size: number) {
     this.size = size
+  }
+
+  public SetPuzzle(puzzle: Puzzle) {
+    this.puzzle = puzzle
   }
 
   public updatePlayerState(values: number[]): void {

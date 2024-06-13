@@ -23,7 +23,7 @@ public class Seeder
                 Size = 2,
                 ColorPalette = "{\"1\":\"one\",\"2\":\"two\",\"3\":\"three\"}",
                 Solution = "[[1,0],[0,1]]",
-                Creator = "Admin@intellitect.com"
+                Creator = "Admin"
         },
 
             new()
@@ -36,7 +36,7 @@ public class Seeder
                 ColorPalette = "{\"1\":\"one\",\"2\":\"two\",\"3\":\"three\"}",
                 Solution = "[[1,1,1,1],[1,0,0,1],[0,1,1,1],[1,0,1,1]]",
                 DateCreated = DateOnly.FromDateTime(DateTime.Now),
-                Creator = "Admin@intellitect.com"
+                Creator = "Admin"
 
             }
 

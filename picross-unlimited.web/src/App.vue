@@ -23,6 +23,7 @@
         <v-list-item to="/About">About</v-list-item>
         <v-list-item to="/Puzzles">View Puzzles</v-list-item>
         <v-list-item to="/Player">Profile</v-list-item>
+        <v-list-item to="/PuzzleEditor">Puzzle Creator</v-list-item>
       </v-list>
     </v-navigation-drawer>
     <SignInDialog v-model="showSignInDialog" />

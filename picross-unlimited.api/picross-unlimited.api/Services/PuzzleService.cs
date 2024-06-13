@@ -20,7 +20,8 @@ namespace Picross_Unlimited.Api.Services
                 Size = puzzle.Size,
                 Solution = puzzle.Solution,
                 ColorPalette = puzzle.ColorPalette,
-                DateCreated = puzzle.DateCreated
+                DateCreated = puzzle.DateCreated,
+                Creator = puzzle.Creator
 
             }).ToListAsync();
         }
@@ -52,5 +53,31 @@ namespace Picross_Unlimited.Api.Services
 
             return puzzleDto;
         }
+
+        public async Task<List<PuzzleDto>> GetUserPuzzles(string userName)
+        {
+
+            var puzzles = Db.Puzzles.Where(puzzle => puzzle.Creator == userName);
+
+            if (puzzles is null)
+            {
+                throw new ResourceNotFoundException();
+            }
+
+            return await puzzles.Select(puzzle => new PuzzleDto
+            {
+                Id = puzzle.PuzzleId,
+                Title = puzzle.Title,
+                Description = puzzle.Description,
+                Difficulty = puzzle.Difficulty,
+                Size = puzzle.Size,
+                Solution = puzzle.Solution,
+                ColorPalette = puzzle.ColorPalette,
+                DateCreated = puzzle.DateCreated,
+                Creator = puzzle.Creator
+
+            }).ToListAsync();
+        }
+
     }
 }
