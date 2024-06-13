@@ -13,7 +13,8 @@
       type === CellType.Hint ? 'hint' : ''
     ]"
     flat
-  />
+    >{{ type === CellType.Hint ? hintVal : '' }}
+  </v-btn>
 </template>
 
 <style scoped lang="scss">
@@ -28,9 +29,6 @@
   border: none;
   display: hidden;
 }
-
-.hint {
-}
 </style>
 
 <script setup lang="ts">
@@ -40,6 +38,7 @@ import { CellState, CellType } from '@/scripts/enums'
 const props = withDefaults(
   defineProps<{
     type: CellType
+    hintVal?: number
   }>(),
   {
     type: CellType.Playable

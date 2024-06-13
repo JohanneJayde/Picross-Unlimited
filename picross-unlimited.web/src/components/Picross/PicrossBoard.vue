@@ -12,7 +12,10 @@
         cols="auto"
         no-gutters
       >
-        <PicrossCell :type="getType(indexRow, indexCol)" />
+        <PicrossCell
+          :type="getType(indexRow, indexCol)"
+          :hintVal="getHintValue(indexRow, indexCol)"
+        />
       </v-col>
     </v-row>
   </v-container>
@@ -41,4 +44,55 @@ function getType(row: number, col: number) {
   }
   return CellType.Playable
 }
+
+function generateHintValsRow(rowNum: number): number[] {
+  let hintvals: number[] = [0, 0]
+
+  let currentHintIndex = 0
+
+  for (let i = 0; i < props.solution[rowNum].length; i++) {
+    if (props.solution[rowNum][i] == 1) {
+      hintvals[currentHintIndex]++
+    } else {
+      if (hintvals[currentHintIndex] != 0) {
+        currentHintIndex++
+      }
+    }
+  }
+
+  return hintvals
+}
+
+function generateHintValsColumn(colNum: number): number[] {
+  let hintvals: number[] = [0, 0]
+
+  let currentHintIndex = 0
+
+  for (let i = 0; i < props.solution[colNum].length; i++) {
+    if (props.solution[i][colNum] == 1) {
+      hintvals[currentHintIndex]++
+    } else {
+      if (hintvals[currentHintIndex] != 0) {
+        currentHintIndex++
+      }
+    }
+  }
+
+  return hintvals
+}
+
+function getHintValue(row: number, col: number) {
+  let hintVal = 0
+  if (row < halfCeiling && col >= halfCeiling) {
+    hintVal = generateHintValsColumn(col - halfCeiling)[row]
+  }
+  if (row >= halfCeiling && col < halfCeiling) {
+    console.log('add hint for column', row, col)
+
+    hintVal = generateHintValsRow(row - halfCeiling)[col]
+  }
+
+  return hintVal
+}
+console.log(generateHintValsRow(0))
 </script>

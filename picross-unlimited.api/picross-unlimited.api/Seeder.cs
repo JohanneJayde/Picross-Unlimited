@@ -7,7 +7,10 @@ public class Seeder
     {
         if (!db.Puzzles.Any())
         {
-            Puzzle puzzle = new()
+
+            List<Puzzle> puzzles = [
+
+            new()
             {
 
                 Title = "My First Puzzle",
@@ -17,10 +20,23 @@ public class Seeder
                 ColorPalette = "{\"1\":\"one\",\"2\":\"two\",\"3\":\"three\"}",
                 Solution = "[[1,0],[0,1]]",
                 DateCreated = DateOnly.FromDateTime(DateTime.Now)
-            };
+            },
 
+            new()
+            {
 
-            await db.Puzzles.AddAsync(puzzle);
+                Title = "My Second Puzzle",
+                Description = "Here is my first second puzzle :)",
+                Difficulty = 3,
+                Size = 4,
+                ColorPalette = "{\"1\":\"one\",\"2\":\"two\",\"3\":\"three\"}",
+                Solution = "[[1,1,1,1],[1,0,0,1],[0,1,1,1],[1,0,1,1]]",
+                DateCreated = DateOnly.FromDateTime(DateTime.Now)
+            }
+
+            ];
+
+            db.Puzzles.AddRange(puzzles);
             await db.SaveChangesAsync();
         }
     }
