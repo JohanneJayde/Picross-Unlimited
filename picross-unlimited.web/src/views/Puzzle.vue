@@ -2,9 +2,12 @@
   <v-container v-if="gamePuzzle">
     <v-row align="center" justify="center">
       <v-col cols="12">
+        <v-btn @click="mistakeMode = !mistakeMode">Show Mistakes</v-btn>
+        {{ mistakeMode }}
         <PicrossBoard
           :solution="gamePuzzle.solution"
           @playerUpdate="(values) => updateGameState(values)"
+          :mistakeMode="mistakeMode"
         />
       </v-col>
       <v-alert v-if="gameWon" color="green">Congrats!!!</v-alert>
@@ -23,6 +26,7 @@ import { Picross, GameState } from '@/scripts/picross'
 const gamePuzzle = ref<Puzzle>()
 const router = useRoute()
 const Game = reactive<Picross>(new Picross())
+const mistakeMode = ref(false)
 const gameWon = computed(() => {
   if (Game.gameState === GameState.Playing) {
     return false

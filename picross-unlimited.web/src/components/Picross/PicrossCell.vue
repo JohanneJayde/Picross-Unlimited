@@ -10,7 +10,8 @@
     :class="[
       type !== CellType.Playable ? 'no-pointer' : '',
       type === CellType.NonPlayable ? 'non-playable' : '',
-      type === CellType.Hint ? 'hint' : ''
+      type === CellType.Hint ? 'hint' : '',
+      mistakeMode === true && playerState != value && type === CellType.Playable ? 'mistake' : ''
     ]"
     flat
     >{{ type === CellType.Hint ? value : '' }}
@@ -29,6 +30,14 @@
   border: none;
   display: hidden;
 }
+.mistake {
+  border: 2px solid red;
+  opacity: 0.8;
+  font-weight: bold;
+}
+.correct {
+  border: 2px solid green;
+}
 </style>
 
 <script setup lang="ts">
@@ -39,9 +48,11 @@ const props = withDefaults(
   defineProps<{
     type: CellType
     value: number
+    mistakeMode: boolean
   }>(),
   {
-    type: CellType.Playable
+    type: CellType.Playable,
+    mistakeMode: false
   }
 )
 
@@ -51,6 +62,7 @@ const emits = defineEmits<{
 const chosenIcon = ref('')
 
 const state = ref(CellState.Empty)
+const playerState = ref(0)
 
 const stateColor = computed(() => {
   if (props.type === CellType.Hint) {
@@ -78,9 +90,12 @@ function handleState() {
   let stateValue = 0
   if (state.value === CellState.Empty) {
     state.value = CellState.Filled
+    playerState.value = 1
     stateValue = 1
   } else {
     state.value = CellState.Empty
+    playerState.value = 0
+
     stateValue = 0
   }
 
