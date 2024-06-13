@@ -8,12 +8,15 @@ export class Picross {
   public size: number
   public gameState: GameState
   public puzzle: Puzzle | undefined
+  public maxClicks: number
+  public playerClicks: number
 
   constructor() {
     this.solution = []
     this.size = 0
     this.playerStates = []
     this.gameState = GameState.Playing
+    this.playerClicks = 0
   }
 
   public async startEditor() {
@@ -30,6 +33,7 @@ export class Picross {
       }
     }
     this.gameState = GameState.Playing
+    this.playerClicks = 0
   }
 
   public setSolution(solution: number[][]) {
@@ -43,20 +47,29 @@ export class Picross {
     this.puzzle = puzzle
   }
 
+  public SetMaxClicks(maxClicks: number) {
+    this.maxClicks = maxClicks
+  }
+
   public updatePlayerState(values: number[]): void {
+    this.playerClicks++
     this.playerStates[values[0]][values[1]] = values[2]
     if (this.gameState === GameState.Playing) {
-      this.checkForWin()
+      if (_.isEqual(this.solution, this.playerStates)) {
+        this.gameState = GameState.Won
+      } else if (this.playerClicks >= this.maxClicks) {
+        this.gameState = GameState.Lost
+      }
     }
   }
 
-  public checkForWin() {
-    if (_.isEqual(this.solution, this.playerStates)) {
-      this.gameState = GameState.Won
-    }
-  }
-
-  public async SavePuzzle(title: string, description: string, difficulty: number, maxClicks: number, color: string): Promise<boolean> {
+  public async SavePuzzle(
+    title: string,
+    description: string,
+    difficulty: number,
+    maxClicks: number,
+    color: string
+  ): Promise<boolean> {
     const isSuccessful = Axios.post('Puzzle/SavePuzzle', {
       id: this.puzzle?.id,
       title: title,

@@ -1,6 +1,7 @@
 <template>
   <v-container v-if="gamePuzzle">
-    <v-alert v-if="gameWon" :color="green">Congrats!!!</v-alert>
+    <v-alert v-if="Game.gameState == GameState.Won" color="green">Congrats!!!</v-alert>
+    <v-alert v-if="Game.gameState == GameState.Lost" color="red">You Lost!!!</v-alert>
     <v-card class="pa-3" :color="gamePuzzle.color">
       <v-card-title>{{ gamePuzzle.title }}</v-card-title>
       <v-card-subtitle>{{ gamePuzzle.description }}</v-card-subtitle>
@@ -18,8 +19,6 @@
           :correctColor="gamePuzzle.color"
         />
       </v-col>
-
-      {{ count }}
     </v-row>
   </v-container>
 </template>
@@ -36,12 +35,7 @@ const gamePuzzle = ref<Puzzle>()
 const router = useRoute()
 const Game = reactive<Picross>(new Picross())
 const mistakeMode = ref(false)
-const gameWon = computed(() => {
-  if (Game.gameState === GameState.Playing) {
-    return false
-  }
-  return true
-})
+
 
 const count = ref(0);
 const id = router.params.id
@@ -50,13 +44,6 @@ function updateGameState(values: number[]) {
   Game.updatePlayerState(values)
   count.value++
 }
-
-
-watch(gameWon, () => {
-  if (gameWon.value) {
-    console.log('Game Won')
-  }
-});
 
 
 onMounted(() => {
@@ -77,6 +64,7 @@ onMounted(() => {
       }
       Game.setSize(gamePuzzle.value.size)
       Game.setSolution(gamePuzzle.value.solution)
+      Game.SetMaxClicks(gamePuzzle.value.maxClicks)
       Game.startNewGame()
     })
     .catch((error) => {
