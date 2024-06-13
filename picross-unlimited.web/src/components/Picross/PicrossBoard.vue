@@ -14,7 +14,8 @@
       >
         <PicrossCell
           :type="getType(indexRow, indexCol)"
-          :hintVal="getHintValue(indexRow, indexCol)"
+          :value="getVal(indexRow, indexCol)"
+          @stateChange="(state) => updateGame(indexRow, indexCol, state)"
         />
       </v-col>
     </v-row>
@@ -50,7 +51,7 @@ function generateHintValsRow(rowNum: number): number[] {
 
   let currentHintIndex = hintvals.length - 1
 
-  for (let i = 0; i < props.solution[rowNum].length; i++) {
+  for (let i = props.solution[rowNum].length - 1; i >= 0; i--) {
     if (props.solution[rowNum][i] == 1) {
       hintvals[currentHintIndex]++
     } else {
@@ -68,7 +69,7 @@ function generateHintValsColumn(colNum: number): number[] {
 
   let currentHintIndex = hintvals.length - 1
 
-  for (let i = 0; i < props.solution[colNum].length; i++) {
+  for (let i = props.solution[colNum].length - 1; i >= 0; i--) {
     if (props.solution[i][colNum] == 1) {
       hintvals[currentHintIndex]++
     } else {
@@ -81,18 +82,39 @@ function generateHintValsColumn(colNum: number): number[] {
   return hintvals
 }
 
+function getVal(row: number, col: number) {
+  const type: CellType = getType(row, col)
+
+  switch (type) {
+    case CellType.Hint:
+      return getHintValue(row, col)
+    case CellType.Playable:
+      return getCorrectState(row, col)
+    default:
+      return 0
+  }
+}
+
 function getHintValue(row: number, col: number) {
   let hintVal = 0
   if (row < halfCeiling && col >= halfCeiling) {
     hintVal = generateHintValsColumn(col - halfCeiling)[row]
   }
   if (row >= halfCeiling && col < halfCeiling) {
-    console.log('add hint for column', row, col)
-
     hintVal = generateHintValsRow(row - halfCeiling)[col]
   }
 
   return hintVal
 }
-console.log(generateHintValsRow(0))
+
+function getCorrectState(row: number, col: number) {
+  const trueRow = row - halfCeiling
+  const trueCol = col - halfCeiling
+
+  return props.solution[trueRow][trueCol]
+}
+
+function updateGame(row: number, col: number, state: number) {
+  console.log('updated game value', row, col, state)
+}
 </script>

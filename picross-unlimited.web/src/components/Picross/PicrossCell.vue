@@ -13,7 +13,7 @@
       type === CellType.Hint ? 'hint' : ''
     ]"
     flat
-    >{{ type === CellType.Hint ? hintVal : '' }}
+    >{{ type === CellType.Hint ? value : '' }}
   </v-btn>
 </template>
 
@@ -38,13 +38,16 @@ import { CellState, CellType } from '@/scripts/enums'
 const props = withDefaults(
   defineProps<{
     type: CellType
-    hintVal?: number
+    value: number
   }>(),
   {
     type: CellType.Playable
   }
 )
 
+const emits = defineEmits<{
+  (e: 'stateChange', state: number): number
+}>()
 const chosenIcon = ref('')
 
 const state = ref(CellState.Empty)
@@ -72,11 +75,16 @@ watch(
 )
 
 function handleState() {
+  let stateValue = 0
   if (state.value === CellState.Empty) {
     state.value = CellState.Filled
+    stateValue = 1
   } else {
     state.value = CellState.Empty
+    stateValue = 0
   }
+
+  emits('stateChange', stateValue)
 }
 
 function handleRightClick() {

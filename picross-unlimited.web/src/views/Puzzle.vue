@@ -14,7 +14,9 @@ import Axios from 'axios'
 import type Puzzle from '../models'
 import { useRoute } from 'vue-router'
 import PicrossBoard from '@/components/Picross/PicrossBoard.vue'
+import { Picross } from '@/scripts/picross'
 
+const Game = ref<Picross>()
 const gamePuzzle = ref<Puzzle>()
 const router = useRoute()
 
@@ -33,7 +35,6 @@ onMounted(() => {
         colorPalette: new Map<number, string>(Object.entries(JSON.parse(puzzle.colorPalette))),
         solution: JSON.parse(puzzle.solution)
       }
-      console.log(gamePuzzle.value)
     })
     .catch((error) => {
       console.error('Error fetching puzzles:', error)
