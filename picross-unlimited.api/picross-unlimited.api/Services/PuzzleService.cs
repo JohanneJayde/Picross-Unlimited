@@ -19,7 +19,6 @@ namespace Picross_Unlimited.Api.Services
                 Difficulty = puzzle.Difficulty,
                 Size = puzzle.Size,
                 Solution = puzzle.Solution,
-                ColorPalette = puzzle.ColorPalette,
                 DateCreated = puzzle.DateCreated,
                 Creator = puzzle.Creator
 
@@ -45,7 +44,6 @@ namespace Picross_Unlimited.Api.Services
                 Difficulty = puzzle.Difficulty,
                 Size = puzzle.Size,
                 Solution = puzzle.Solution,
-                ColorPalette = puzzle.ColorPalette,
                 DateCreated = puzzle.DateCreated,
                 Creator = puzzle.Creator
 
@@ -72,11 +70,30 @@ namespace Picross_Unlimited.Api.Services
                 Difficulty = puzzle.Difficulty,
                 Size = puzzle.Size,
                 Solution = puzzle.Solution,
-                ColorPalette = puzzle.ColorPalette,
                 DateCreated = puzzle.DateCreated,
                 Creator = puzzle.Creator
 
             }).ToListAsync();
+        }
+
+        public async Task<bool> SavePuzzle(UpdatePuzzleDto puzzleDto)
+        {
+            var puzzle = await Db.Puzzles.FirstOrDefaultAsync(puzzle => puzzle.PuzzleId == puzzleDto.Id);
+
+            if (puzzle is not null)
+            {
+
+                puzzle.Solution = puzzleDto.Solution;
+                puzzle.Difficulty = puzzleDto.Difficulty;
+                puzzle.Title = puzzleDto.Title;
+                puzzle.Size = puzzleDto.Size;
+                puzzle.Description = puzzleDto.Description;
+
+                await Db.SaveChangesAsync();
+                return true;
+
+            }
+            return false;
         }
 
     }

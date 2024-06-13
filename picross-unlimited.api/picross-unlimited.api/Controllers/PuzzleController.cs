@@ -30,4 +30,13 @@ public class PuzzleController(PuzzleService PuzzleService) : Controller
         var puzzles = await PuzzleService.GetUserPuzzles(username);
         return puzzles;
     }
+
+    [HttpPost("/SavePuzzle")]
+
+    public async Task<bool> Save(UpdatePuzzleDto puzzle)
+    {
+        bool isSuccess = await PuzzleService.SavePuzzle(puzzle);
+
+        return isSuccess;
+    }
 }

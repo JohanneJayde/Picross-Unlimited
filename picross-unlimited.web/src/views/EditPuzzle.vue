@@ -46,7 +46,6 @@ onMounted(() => {
         description: puzzle.description,
         difficulty: puzzle.difficulty,
         size: puzzle.size,
-        colorPalette: new Map<number, string>(Object.entries(JSON.parse(puzzle.colorPalette))),
         solution: JSON.parse(puzzle.solution)
       }
       Game.setSize(gamePuzzle.value.size)

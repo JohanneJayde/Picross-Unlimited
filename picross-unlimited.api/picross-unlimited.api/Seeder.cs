@@ -21,10 +21,9 @@ public class Seeder
                 Description = "Here is my first Color",
                 Difficulty = 1,
                 Size = 2,
-                ColorPalette = "{\"1\":\"one\",\"2\":\"two\",\"3\":\"three\"}",
                 Solution = "[[1,0],[0,1]]",
-                Creator = "Admin"
-        },
+                Creator = "Admin@intellitect.com"
+            },
 
             new()
             {
@@ -33,10 +32,9 @@ public class Seeder
                 Description = "Here is my first second puzzle :)",
                 Difficulty = 3,
                 Size = 4,
-                ColorPalette = "{\"1\":\"one\",\"2\":\"two\",\"3\":\"three\"}",
                 Solution = "[[1,1,1,1],[1,0,0,1],[0,1,1,1],[1,0,1,1]]",
                 DateCreated = DateOnly.FromDateTime(DateTime.Now),
-                Creator = "Admin"
+                Creator = "Admin@intellitect.com"
 
             }
 

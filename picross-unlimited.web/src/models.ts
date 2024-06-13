@@ -4,6 +4,5 @@ export default interface Puzzle {
   description: string
   difficulty: number
   size: number
-  colorPalette: Map<number, string>
   solution: number[][]
 }
