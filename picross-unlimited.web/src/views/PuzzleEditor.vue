@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container v-if="tokenService.isLoggedIn()">
     <v-row justify="center">
       <v-col cols="12" md="8">
         <v-card class="pa-3 mb-4" color="primary">
@@ -11,6 +11,7 @@
       </v-col>
     </v-row>
   </v-container>
+  <v-card v-else> Sorry you must be logged in to create and edit Puzzles :(</v-card>
 </template>
 <script setup lang="ts">
 import { ref } from 'vue'
