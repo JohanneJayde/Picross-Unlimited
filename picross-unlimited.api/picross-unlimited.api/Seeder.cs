@@ -1,7 +1,11 @@
 ﻿namespace Picross_Unlimited.Api;
+
+using Azure.Identity;
+using Microsoft.AspNetCore.Identity;
 using Picross_Unlimited.Api.Models;
 
 public class Seeder
+
 {
     public static async Task Seed(AppDbContext db)
     {
@@ -19,8 +23,8 @@ public class Seeder
                 Size = 2,
                 ColorPalette = "{\"1\":\"one\",\"2\":\"two\",\"3\":\"three\"}",
                 Solution = "[[1,0],[0,1]]",
-                DateCreated = DateOnly.FromDateTime(DateTime.Now)
-            },
+                Creator = "Admin@intellitect.com"
+        },
 
             new()
             {
@@ -31,7 +35,9 @@ public class Seeder
                 Size = 4,
                 ColorPalette = "{\"1\":\"one\",\"2\":\"two\",\"3\":\"three\"}",
                 Solution = "[[1,1,1,1],[1,0,0,1],[0,1,1,1],[1,0,1,1]]",
-                DateCreated = DateOnly.FromDateTime(DateTime.Now)
+                DateCreated = DateOnly.FromDateTime(DateTime.Now),
+                Creator = "Admin@intellitect.com"
+
             }
 
             ];

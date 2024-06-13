@@ -3,14 +3,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Picross_Unlimited.Api.Models;
 
-    public class Puzzle
-    {
+public class Puzzle
+{
 
     [Required]
     public int PuzzleId { get; set; }
 
     public string Title { get; set; } = null!;
-    public string Description { get; set;} = null!;
+    public string Description { get; set; } = null!;
 
     [Range(0, 10)]
     public int Difficulty { get; set; }
@@ -18,7 +18,8 @@ namespace Picross_Unlimited.Api.Models;
     public DateOnly DateCreated { get; set; }
 
     public string ColorPalette { get; set; } = null!;
-
     public string Solution { get; set; } = null!;
+    public string Creator { get; set; } = null!;
+
     }
 

@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Picross_Unlimited.Api.Dtos;
 using Picross_Unlimited.Api.Models;
@@ -44,7 +45,8 @@ namespace Picross_Unlimited.Api.Services
                 Size = puzzle.Size,
                 Solution = puzzle.Solution,
                 ColorPalette = puzzle.ColorPalette,
-                DateCreated = puzzle.DateCreated
+                DateCreated = puzzle.DateCreated,
+                Creator = puzzle.Creator
 
             };
 
