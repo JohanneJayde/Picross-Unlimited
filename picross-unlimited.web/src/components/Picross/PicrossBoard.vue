@@ -18,6 +18,7 @@
           @stateChange="(state) => updateGame(indexRow, indexCol, state)"
           :mistakeMode="mistakeMode"
           :startSolved="loadSolution"
+          :correctColor="correctColor"
         />
       </v-col>
     </v-row>
@@ -31,6 +32,7 @@ const props = defineProps<{
   solution: number[][]
   mistakeMode: boolean
   loadSolution: boolean
+  correctColor: string
 }>()
 
 const emits = defineEmits<{

@@ -15,6 +15,7 @@
           @playerUpdate="(values) => updateGameState(values)"
           :mistakeMode="mistakeMode"
           :loadSolution="false"
+          :correctColor="gamePuzzle.color"
         />
       </v-col>
 

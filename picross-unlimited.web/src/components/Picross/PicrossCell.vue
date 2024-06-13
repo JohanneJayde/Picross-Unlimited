@@ -35,9 +35,6 @@
   opacity: 0.8;
   font-weight: bold;
 }
-.correct {
-  border: 2px solid green;
-}
 </style>
 
 <script setup lang="ts">
@@ -50,10 +47,12 @@ const props = withDefaults(
     value: number
     mistakeMode: boolean
     startSolved: boolean
+    correctColor: string
   }>(),
   {
     type: CellType.Playable,
-    mistakeMode: false
+    mistakeMode: false,
+    correctColor: 'primary'
   }
 )
 
@@ -75,14 +74,14 @@ const stateColor = computed(() => {
       case 0:
         return 'white'
       default:
-        return 'primary'
+        return props.correctColor;
     }
   } else {
     switch (state.value) {
       case CellState.Empty:
         return 'white'
       default:
-        return 'primary'
+        return props.correctColor;
     }
   }
 })
