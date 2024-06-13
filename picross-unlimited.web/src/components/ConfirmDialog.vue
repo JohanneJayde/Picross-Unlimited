@@ -4,7 +4,7 @@
       <v-sheet color="primary">
         <v-card-title class="text-wrap">{{ title }}</v-card-title>
       </v-sheet>
-      <v-card-text class="text-body-1 ma-3 text-center">{{ messsage }}</v-card-text>
+      <v-card-text class="text-body-1 ma-3 text-center">{{ message }}</v-card-text>
       <v-card-actions>
         <v-spacer />
         <v-btn color="primary" variant="tonal" @click="cancel()" text="Cancel" />
@@ -18,7 +18,7 @@
 const props = withDefaults(
   defineProps<{
     title: string
-    messsage: string
+    message: string
     action: string
   }>(),
   {

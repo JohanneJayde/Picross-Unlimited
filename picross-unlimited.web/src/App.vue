@@ -23,6 +23,7 @@
         <v-list-item to="About">About</v-list-item>
         <v-list-item to="Game">Play</v-list-item>
         <v-list-item to="Player">Profile</v-list-item>
+        <v-list-item to="Puzzles">Puzzles</v-list-item>
       </v-list>
     </v-navigation-drawer>
     <SignInDialog v-model="showSignInDialog" />
@@ -48,10 +49,6 @@ const showDrawer = ref(false)
 const showSignInDialog = ref(false)
 const showConfirmDialog = ref(false)
 const tokenService = new TokenService()
-
-function navigateTo(page: string) {
-  router.push({ name: page })
-}
 
 function showLoginLogOut() {
   if (localStorage.getItem('token')) {

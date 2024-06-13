@@ -12,11 +12,14 @@ namespace Picross_Unlimited.Api.Services
         {
             return await Db.Puzzles.Select(puzzle => new PuzzleDto
             {
+                Id = puzzle.PuzzleId,
                 Title = puzzle.Title,
                 Description = puzzle.Description,
+                Difficulty = puzzle.Difficulty,
                 Size = puzzle.Size,
                 Solution = puzzle.Solution,
                 ColorPalette = puzzle.ColorPalette,
+                DateCreated = puzzle.DateCreated
 
             }).ToListAsync();
         }

@@ -9,11 +9,14 @@ public class Seeder
         {
             Puzzle puzzle = new()
             {
+
                 Title = "My First Puzzle",
                 Description = "Here is my first Color",
-                Size = 9,
-                ColorPalette = "{\r\n  \"colorPalette\": [\r\n    {\r\n      \"1\": \"red\"\r\n    }\r\n  ]\r\n}",
-                Solution = "{\r\n  \"solution\": \"[1,0,0,1]\"\r\n}"
+                Difficulty = 1,
+                Size = 2,
+                ColorPalette = "{\"1\":\"one\",\"2\":\"two\",\"3\":\"three\"}",
+                Solution = "[[1,0],[0,1]]",
+                DateCreated = DateOnly.FromDateTime(DateTime.Now)
             };
 
 

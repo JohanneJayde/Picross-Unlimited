@@ -10,7 +10,7 @@ public class PuzzleController(PuzzleService PuzzleService) : Controller
 {
    PuzzleService PuzzleService { get; set; } = PuzzleService;
 
-    [HttpPost("AllPuzzles")]
+    [HttpGet("AllPuzzles")]
     public async Task<List<PuzzleDto>> GetAllPuzzles()
     {
         var puzzles = await PuzzleService.GetAllPuzzles();
