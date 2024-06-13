@@ -17,5 +17,11 @@ public class PuzzleController(PuzzleService PuzzleService) : Controller
         return puzzles;
     }
 
+    [HttpGet("{id}")]
+    public async Task<PuzzleDto> GetPuzzle( int id )
+    {
+        return await PuzzleService.GetPuzzle( id );
+    }
+
 
 }

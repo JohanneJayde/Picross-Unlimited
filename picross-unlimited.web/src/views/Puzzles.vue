@@ -1,6 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <v-container class="fill-height d-flex align-center justify-center">
+  <v-container>
     <v-row justify="center">
       <v-col cols="12" md="8">
         <PuzzleGroup :puzzles="Puzzles" />
@@ -34,6 +34,4 @@ Axios.get('/Puzzle/AllPuzzles')
   .catch((error) => {
     console.error('Error fetching puzzles:', error)
   })
-
-console.log(Puzzles.value)
 </script>

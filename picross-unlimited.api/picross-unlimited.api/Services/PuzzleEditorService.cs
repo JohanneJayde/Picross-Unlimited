@@ -24,5 +24,31 @@ namespace Picross_Unlimited.Api.Services
             }).ToListAsync();
         }
 
+        public async Task<PuzzleDto> GetPuzzle(int puzzleId)
+        {
+            var puzzle = await Db.Puzzles.FirstOrDefaultAsync(p => p.PuzzleId == puzzleId);
+
+            PuzzleDto puzzleDto;
+
+            if (puzzle is null)
+            {
+                throw new ResourceNotFoundException();
+            }
+
+            puzzleDto = new PuzzleDto
+            {
+                Id = puzzle.PuzzleId,
+                Title = puzzle.Title,
+                Description = puzzle.Description,
+                Difficulty = puzzle.Difficulty,
+                Size = puzzle.Size,
+                Solution = puzzle.Solution,
+                ColorPalette = puzzle.ColorPalette,
+                DateCreated = puzzle.DateCreated
+
+            };
+
+            return puzzleDto;
+        }
     }
 }
