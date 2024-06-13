@@ -6,6 +6,8 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using Picross_Unlimited.Api.Models;
 using Picross_Unlimited.Api.Identity;
+using Picross_Unlimited.Api;
+using Picross_Unlimited.Api.Services;
 
 
 var AllOrigins = "AllOrigins";
@@ -59,6 +61,9 @@ builder.Services.AddSwaggerGen(config =>
 }
 );
 
+builder.Services.AddScoped<PuzzleService>();
+
+
 
 // Identity Services
 builder.Services.AddIdentityCore<AppUser>(options => options.SignIn.RequireConfirmedAccount = false)
@@ -99,7 +104,7 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.Migrate();
-    // await Seeder.Seed(db);
+    await Seeder.Seed(db);
 
     await IdentitySeed.SeedAsync(
     scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>(),
