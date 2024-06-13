@@ -1,16 +1,15 @@
 <template>
   <v-container v-if="gamePuzzle">
-    <v-alert v-if="Game.gameState == GameState.Won" color="green">Congrats!!!</v-alert>
-    <v-alert v-if="Game.gameState == GameState.Lost" color="red">You Lost!!!</v-alert>
+
     <v-card class="pa-3" :color="gamePuzzle.color">
       <v-card-title>{{ gamePuzzle.title }}</v-card-title>
       <v-card-subtitle>{{ gamePuzzle.description }}</v-card-subtitle>
+      <v-card-subtitle>Difficulty: {{ gamePuzzle.difficulty }}</v-card-subtitle>
+      <v-card-subtitle>Creator: {{ gamePuzzle.creator }}</v-card-subtitle>
+      <v-card-subtitle>Date Created: {{ gamePuzzle.dateCreated }}</v-card-subtitle>
     </v-card>
     <v-row align="center" justify="center">
-      <v-col cols="2">
-        <v-btn @click="mistakeMode = !mistakeMode">Show Mistakes</v-btn>
-      </v-col>
-      <v-col cols="10">
+      <v-col cols="12">
         <PicrossBoard
           :solution="gamePuzzle.solution"
           @playerUpdate="(values) => updateGameState(values)"
@@ -20,11 +19,23 @@
         />
       </v-col>
     </v-row>
+    <v-dialog v-model="showEndScreen" persistent>
+      <v-card width="500" class="mx-auto pa-3 rounded-xl" :color="Game.gameState === GameState.Won ? 'green' : 'red'">
+        <v-card-title v-if="Game.gameState === GameState.Won" class="text-center font-weight-bold"> Congrats! You Won!</v-card-title>
+        <v-card-title v-else class="text-center font-weight-bold"> Sorry You Lost :(</v-card-title>
+        <v-card-text class="text-center text-h4"> You Clicked a total of {{ count }}!</v-card-text>
+        <v-card-actions class>
+          <v-btn @click="$router.push(
+            { name: 'Puzzles' }
+          )">Go Back To Puzzles</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, reactive, computed, watch } from 'vue'
+import { ref, onMounted, reactive, watch } from 'vue'
 import Axios from 'axios'
 import type Puzzle from '../models'
 import { useRoute } from 'vue-router'
@@ -37,6 +48,7 @@ const router = useRoute()
 const Game = reactive<Picross>(new Picross())
 const mistakeMode = ref(false)
 const tokenService = new TokenService()
+const showEndScreen = ref(false)
 
 
 const count = ref(0);
@@ -50,10 +62,11 @@ function updateGameState(values: number[]) {
 watch(Game,
   () => {
     if (Game.gameState != GameState.Playing) {
+      showEndScreen.value = true
       Axios.post(`/Game/Post/`, 
       { 
           username: tokenService.getUserName(),
-          puzzleId: gamePuzzle.value.id,
+          puzzleId: gamePuzzle.value!.id,
           isWin: Game.gameState == GameState.Won,
           numberOfClicks: count.value
       })
@@ -84,9 +97,9 @@ onMounted(() => {
         color: puzzle.color,
         maxClicks: puzzle.maxClicks
       }
-      Game.setSize(gamePuzzle.value.size)
-      Game.setSolution(gamePuzzle.value.solution)
-      Game.SetMaxClicks(gamePuzzle.value.maxClicks)
+      Game.setSize(gamePuzzle.value!.size)
+      Game.setSolution(gamePuzzle.value!.solution)
+      Game.SetMaxClicks(gamePuzzle.value!.maxClicks)
       Game.startNewGame()
     })
     .catch((error) => {

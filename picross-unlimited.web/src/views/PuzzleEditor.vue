@@ -13,9 +13,11 @@
       </v-col>
     </v-row>
   </v-container>
-  <v-card v-else> 
-    Sorry you must be logged in to create and edit Puzzles :(
+  <v-container v-else>
+  <v-card color="primary" class="pa-3"> 
+    <v-card-title>Sorry! You Must Be Logged In</v-card-title>
   </v-card>
+</v-container>
   <AddPuzzleDialog v-model="showAddPuzzleDialog" @close="showAddPuzzleDialog = false" />
 </template>
 <script setup lang="ts">

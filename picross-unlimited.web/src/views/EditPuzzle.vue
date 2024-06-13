@@ -26,6 +26,7 @@
           @playerUpdate="(values) => updateGameState(values)"
           :mistakeMode="false"
           :loadSolution="true"
+          :correctColor="gamePuzzle.color"
         />
       </v-col>
     </v-row>
@@ -73,24 +74,24 @@ onMounted(() => {
         color: puzzle.color,
         maxClicks: puzzle.maxClicks
       }
-      Game.setSize(gamePuzzle.value.size)
-      Game.setSolution(gamePuzzle.value.solution)
-      Game.SetPuzzle(gamePuzzle.value)
+      Game.setSize(gamePuzzle.value!.size)
+      Game.setSolution(gamePuzzle.value!.solution)
+      Game.SetPuzzle(gamePuzzle.value!)
       Game.startEditor()
 
-      title.value = gamePuzzle.value.title
-      description.value = gamePuzzle.value.description
-      difficulty.value = gamePuzzle.value.difficulty
-      maxClicks.value = gamePuzzle.value.maxClicks
-      color.value = gamePuzzle.value.color.toLowerCase()
+      title.value = gamePuzzle.value!.title
+      description.value = gamePuzzle.value!.description
+      difficulty.value = gamePuzzle.value!.difficulty
+      maxClicks.value = gamePuzzle.value!.maxClicks
+      color.value = gamePuzzle.value!.color.toLowerCase()
     })
     .catch((error) => {
       console.error('Error fetching puzzles:', error)
     })
 })
 
-function savePuzzle() {
-  const success: boolean = Game.SavePuzzle(title.value, description.value, difficulty.value, maxClicks.value, color.value)
+async function savePuzzle() {
+  const success: boolean =  await Game.SavePuzzle(title.value, description.value, difficulty.value, maxClicks.value, color.value)
   if (success) {
     router.push({ name: 'Puzzle Editor' })
   } else {

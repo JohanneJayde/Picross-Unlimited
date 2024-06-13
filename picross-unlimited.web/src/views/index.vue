@@ -1,3 +1,4 @@
+// eslint-disable-next-line vue/multi-word-component-names
 <template>
   <v-container class="fill-height d-flex align-center justify-center">
     <v-row class="justify-center">
@@ -8,15 +9,9 @@
             Dive into our logic puzzle game where players fill in squares on a grid based on numbers
             along the edges to reveal a hidden picture!
           </v-card-text>
-          <v-card-actions class="d-flex justify-center">
-            <v-btn color="white" class="bg-primary pa-2 px-5" to="/game" text="Play Picross" />
-          </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
-<script setup lang="ts"></script>
-
-<style scoped></style>

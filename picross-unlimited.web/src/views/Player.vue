@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/valid-v-slot -->
 <template>
   <v-container>
     <v-card class="pa-3 mb-4" color="primary">
@@ -21,7 +22,7 @@
 
           >
             <template v-slot:item.datePlayed="{item}">
-              {{ new Date(item.datePlayed).toLocaleDateString() }}
+              {{ new Date(item.DatePlayed).toLocaleDateString() }}
             </template>
             <template v-slot:item.isWin="{item}" >
               <v-chip :color="item.isWin ? 'success' : 'error'">
@@ -81,9 +82,9 @@ import Axios from 'axios'
 
 const tokenService = new TokenService()
 const userName = tokenService.getUserName() ?? 'Guest'
-const gameStats: ref<GameDetail[]> = ref([])
+const gameStats = ref<GameDetail[]>([])
 
-const puzzles: ref<Puzzle[]> = ref([])
+const puzzles = ref<Puzzle[]>([])
 
 onMounted(() => {
   console.log('User:', tokenService.getUserName())
@@ -110,7 +111,7 @@ Axios.get('Puzzle/Users/' + tokenService.getSub())
         size: puzzle.size,
         creator: puzzle.creator,
         dateCreated: puzzle.dateCreated,
-        solution: JSON.parse(puzzle.solution),
+        solution: JSON.stringify(puzzle.solution),
         maxClicks: puzzle.maxClicks,
         color: puzzle.color
       })

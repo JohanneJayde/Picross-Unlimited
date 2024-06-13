@@ -37,7 +37,7 @@ public static class IdentitySeed
             {
                 ProfileColor = "Secondary",
                 ProfileIcon = "\\eb3b",
-                UserName = "Admin@Picross.com",
+                UserName = "Admin",
                 Email = "Admin@Picross.com"
             };
 
