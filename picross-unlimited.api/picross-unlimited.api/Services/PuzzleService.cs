@@ -20,7 +20,9 @@ namespace Picross_Unlimited.Api.Services
                 Size = puzzle.Size,
                 Solution = puzzle.Solution,
                 DateCreated = puzzle.DateCreated,
-                Creator = puzzle.Creator
+                Creator = puzzle.Creator,
+                Color = puzzle.Color,
+                MaxClicks = puzzle.MaxClicks,
 
             }).ToListAsync();
         }
@@ -45,7 +47,9 @@ namespace Picross_Unlimited.Api.Services
                 Size = puzzle.Size,
                 Solution = puzzle.Solution,
                 DateCreated = puzzle.DateCreated,
-                Creator = puzzle.Creator
+                Creator = puzzle.Creator,
+                Color = puzzle.Color,
+                MaxClicks = puzzle.MaxClicks,
 
             };
 
@@ -71,7 +75,9 @@ namespace Picross_Unlimited.Api.Services
                 Size = puzzle.Size,
                 Solution = puzzle.Solution,
                 DateCreated = puzzle.DateCreated,
-                Creator = puzzle.Creator
+                Creator = puzzle.Creator,
+                Color = puzzle.Color,
+                MaxClicks = puzzle.MaxClicks,
 
             }).ToListAsync();
         }
@@ -87,6 +93,8 @@ namespace Picross_Unlimited.Api.Services
                 puzzle.Difficulty = puzzleDto.Difficulty;
                 puzzle.Title = puzzleDto.Title;
                 puzzle.Description = puzzleDto.Description;
+                puzzle.MaxClicks = puzzleDto.MaxClicks;
+                puzzle.Color = puzzleDto.Color;
 
                 await Db.SaveChangesAsync();
                 return true;
@@ -105,7 +113,9 @@ namespace Picross_Unlimited.Api.Services
                 Size = puzzleDto.Size,
                 Solution = puzzleDto.Solution,
                 DateCreated = DateOnly.FromDateTime(puzzleDto.DateCreated),
-                Creator = puzzleDto.Creator
+                Creator = puzzleDto.Creator,
+                Color = puzzleDto.Color,
+                MaxClicks = puzzleDto.MaxClicks,
             };
 
             await Db.AddAsync(puzzle);

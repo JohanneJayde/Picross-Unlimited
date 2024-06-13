@@ -7,6 +7,9 @@ public class NewPuzzleDto
     public int Difficulty { get; set; }
     public int Size { get; set; }
     public DateTime DateCreated { get; set; }
+    public string Color { get; set; } = null!;
+
+    public int MaxClicks { get; set; }
 
     public string Solution { get; set; } = null!;
 

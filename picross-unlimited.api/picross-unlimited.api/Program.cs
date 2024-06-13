@@ -62,7 +62,7 @@ builder.Services.AddSwaggerGen(config =>
 );
 
 builder.Services.AddScoped<PuzzleService>();
-
+builder.Services.AddScoped<GameService>();
 
 
 // Identity Services

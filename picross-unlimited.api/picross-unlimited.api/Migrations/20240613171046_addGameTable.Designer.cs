@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Picross_Unlimited.Api.Models;
 
@@ -11,9 +12,11 @@ using Picross_Unlimited.Api.Models;
 namespace Picross_Unlimited.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240613171046_addGameTable")]
+    partial class addGameTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -267,10 +270,6 @@ namespace Picross_Unlimited.Api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PuzzleId"));
 
-                    b.Property<string>("Color")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Creator")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -283,9 +282,6 @@ namespace Picross_Unlimited.Api.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Difficulty")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MaxClicks")
                         .HasColumnType("int");
 
                     b.Property<int>("Size")

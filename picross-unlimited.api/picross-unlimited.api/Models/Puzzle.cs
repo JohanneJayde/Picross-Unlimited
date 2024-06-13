@@ -11,6 +11,8 @@ public class Puzzle
 
     public string Title { get; set; } = null!;
     public string Description { get; set; } = null!;
+    public int MaxClicks { get; set; }
+    public string Color { get; set; } = null!;
 
     [Range(0, 10)]
     public int Difficulty { get; set; }

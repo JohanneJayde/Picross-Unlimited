@@ -1,0 +1,23 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Picross_Unlimited.Api.Dtos;
+using Picross_Unlimited.Api.Services;
+
+namespace Picross_Unlimited.Api.Controllers;
+
+
+[Route("[controller]")]
+[ApiController]
+public class GameController(GameService GameService) : Controller
+{
+    public GameService GameService { get; set; } = GameService;
+
+
+    [HttpPost("Post")]
+    public async Task<bool> PostGame(GameDto game)
+    {
+        bool isSuccessful = await GameService.SaveGame(game);
+
+        return isSuccessful;
+    }
+}
+

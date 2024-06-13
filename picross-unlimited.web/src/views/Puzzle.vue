@@ -17,12 +17,14 @@
           :loadSolution="false"
         />
       </v-col>
+
+      {{ count }}
     </v-row>
   </v-container>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, reactive, computed } from 'vue'
+import { ref, onMounted, reactive, computed, watch } from 'vue'
 import Axios from 'axios'
 import type Puzzle from '../models'
 import { useRoute } from 'vue-router'
@@ -40,11 +42,21 @@ const gameWon = computed(() => {
   return true
 })
 
+const count = ref(0);
 const id = router.params.id
 
 function updateGameState(values: number[]) {
   Game.updatePlayerState(values)
+  count.value++
 }
+
+
+watch(gameWon, () => {
+  if (gameWon.value) {
+    console.log('Game Won')
+  }
+});
+
 
 onMounted(() => {
   Axios.get(`/Puzzle/${id}`)
