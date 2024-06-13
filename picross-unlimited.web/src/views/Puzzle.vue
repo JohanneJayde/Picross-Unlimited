@@ -1,16 +1,21 @@
 <template>
   <v-container v-if="gamePuzzle">
+    <v-alert v-if="gameWon" color="green">Congrats!!!</v-alert>
+    <v-card class="pa-3" color="primary">
+      <v-card-title>{{ gamePuzzle.title }}</v-card-title>
+      <v-card-subtitle>{{ gamePuzzle.description }}</v-card-subtitle>
+    </v-card>
     <v-row align="center" justify="center">
-      <v-col cols="12">
+      <v-col cols="6">
         <v-btn @click="mistakeMode = !mistakeMode">Show Mistakes</v-btn>
-        {{ mistakeMode }}
+      </v-col>
+      <v-col cols="6">
         <PicrossBoard
           :solution="gamePuzzle.solution"
           @playerUpdate="(values) => updateGameState(values)"
           :mistakeMode="mistakeMode"
         />
       </v-col>
-      <v-alert v-if="gameWon" color="green">Congrats!!!</v-alert>
     </v-row>
   </v-container>
 </template>

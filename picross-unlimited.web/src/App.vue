@@ -20,10 +20,9 @@
     </v-main>
     <v-navigation-drawer v-model="showDrawer" location="left">
       <v-list>
-        <v-list-item to="About">About</v-list-item>
-        <v-list-item to="Puzzles">View Puzzles</v-list-item>
-        <v-list-item to="Player">Profile</v-list-item>
-        <v-list-item to="Puzzles">Puzzles</v-list-item>
+        <v-list-item to="/About">About</v-list-item>
+        <v-list-item to="/Puzzles">View Puzzles</v-list-item>
+        <v-list-item to="/Player">Profile</v-list-item>
       </v-list>
     </v-navigation-drawer>
     <SignInDialog v-model="showSignInDialog" />
