@@ -46,16 +46,16 @@ function getType(row: number, col: number) {
 }
 
 function generateHintValsRow(rowNum: number): number[] {
-  let hintvals: number[] = [0, 0]
+  let hintvals: number[] = new Array(halfCeiling).fill(0)
 
-  let currentHintIndex = 0
+  let currentHintIndex = hintvals.length - 1
 
   for (let i = 0; i < props.solution[rowNum].length; i++) {
     if (props.solution[rowNum][i] == 1) {
       hintvals[currentHintIndex]++
     } else {
       if (hintvals[currentHintIndex] != 0) {
-        currentHintIndex++
+        currentHintIndex--
       }
     }
   }
@@ -64,16 +64,16 @@ function generateHintValsRow(rowNum: number): number[] {
 }
 
 function generateHintValsColumn(colNum: number): number[] {
-  let hintvals: number[] = [0, 0]
+  let hintvals: number[] = new Array(halfCeiling).fill(0)
 
-  let currentHintIndex = 0
+  let currentHintIndex = hintvals.length - 1
 
   for (let i = 0; i < props.solution[colNum].length; i++) {
     if (props.solution[i][colNum] == 1) {
       hintvals[currentHintIndex]++
     } else {
       if (hintvals[currentHintIndex] != 0) {
-        currentHintIndex++
+        currentHintIndex--
       }
     }
   }
