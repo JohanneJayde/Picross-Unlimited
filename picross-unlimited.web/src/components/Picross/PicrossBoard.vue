@@ -17,6 +17,7 @@
           :value="getVal(indexRow, indexCol)"
           @stateChange="(state) => updateGame(indexRow, indexCol, state)"
           :mistakeMode="mistakeMode"
+          :startSolved="loadSolution"
         />
       </v-col>
     </v-row>
@@ -29,6 +30,7 @@ import PicrossCell from './PicrossCell.vue'
 const props = defineProps<{
   solution: number[][]
   mistakeMode: boolean
+  loadSolution: boolean
 }>()
 
 const emits = defineEmits<{

@@ -1,23 +1,20 @@
 <template>
   <v-container v-if="gamePuzzle">
-    <v-alert v-if="gameWon" color="green">Congrats!!!</v-alert>
     <v-card class="pa-3" color="primary">
       <v-card-title>{{ gamePuzzle.title }}</v-card-title>
       <v-card-subtitle>{{ gamePuzzle.description }}</v-card-subtitle>
     </v-card>
     <v-row align="center" justify="center">
       <v-col cols="6">
-        <v-btn @click="mistakeMode = !mistakeMode">Show Mistakes</v-btn>
-      </v-col>
-      <v-col cols="6">
         <PicrossBoard
           :solution="gamePuzzle.solution"
           @playerUpdate="(values) => updateGameState(values)"
-          :mistakeMode="mistakeMode"
-          :loadSolution="false"
+          :mistakeMode="false"
+          :loadSolution="true"
         />
       </v-col>
     </v-row>
+    <v-btn @click="SavePuzzle">Save</v-btn>
   </v-container>
 </template>
 
@@ -32,13 +29,6 @@ import { Picross, GameState } from '@/scripts/picross'
 const gamePuzzle = ref<Puzzle>()
 const router = useRoute()
 const Game = reactive<Picross>(new Picross())
-const mistakeMode = ref(false)
-const gameWon = computed(() => {
-  if (Game.gameState === GameState.Playing) {
-    return false
-  }
-  return true
-})
 
 const id = router.params.id
 
@@ -61,10 +51,15 @@ onMounted(() => {
       }
       Game.setSize(gamePuzzle.value.size)
       Game.setSolution(gamePuzzle.value.solution)
-      Game.startNewGame()
+      Game.SetPuzzle(gamePuzzle.value)
+      Game.startEditor()
     })
     .catch((error) => {
       console.error('Error fetching puzzles:', error)
     })
 })
+
+function savePuzzle() {
+  Game.SaveCurrentPuzzle()
+}
 </script>

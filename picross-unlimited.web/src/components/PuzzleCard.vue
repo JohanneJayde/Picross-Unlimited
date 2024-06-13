@@ -11,7 +11,7 @@
     </v-card-text>
     <v-card-actions>
       <v-btn :to="`Puzzle/${props.puzzle.id}`">Play</v-btn>
-      <v-btn v-if="EditMode">Edit Puzzle</v-btn>
+      <v-btn v-if="EditMode" :to="`EditPuzzle/${props.puzzle.id}`">Edit Puzzle</v-btn>
     </v-card-actions>
   </v-card>
 </template>

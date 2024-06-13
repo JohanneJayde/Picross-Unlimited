@@ -15,6 +15,11 @@ export class Picross {
     this.gameState = GameState.Playing
   }
 
+  public async startEditor() {
+    this.playerStates = this.solution
+    this.gameState = GameState.Edit
+  }
+
   public async startNewGame() {
     //init playe states;
     for (let i = 0; i < this.size; i++) {
@@ -48,10 +53,13 @@ export class Picross {
       this.gameState = GameState.Won
     }
   }
+
+  public SavePuzzle() {}
 }
 
 export enum GameState {
   Playing,
   Won,
-  Lost
+  Lost,
+  Edit
 }

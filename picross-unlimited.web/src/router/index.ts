@@ -5,6 +5,7 @@ import Player from '../views/Player.vue'
 import Puzzles from '../views/Puzzles.vue'
 import Puzzle from '../views/Puzzle.vue'
 import PuzzleEditor from '../views/PuzzleEditor.vue'
+import EditPuzzle from '../views/EditPuzzle.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -38,6 +39,11 @@ const router = createRouter({
       path: '/PuzzleEditor',
       name: 'Puzzle Editor',
       component: PuzzleEditor
+    },
+    {
+      path: '/EditPuzzle/:id',
+      name: 'Edit Puzzle',
+      component: EditPuzzle
     }
   ]
 })

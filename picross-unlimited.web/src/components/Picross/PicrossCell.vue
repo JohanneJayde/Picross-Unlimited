@@ -49,6 +49,7 @@ const props = withDefaults(
     type: CellType
     value: number
     mistakeMode: boolean
+    startSolved: boolean
   }>(),
   {
     type: CellType.Playable,
@@ -69,11 +70,20 @@ const stateColor = computed(() => {
     return '#add8e6'
   }
 
-  switch (state.value) {
-    case CellState.Empty:
-      return 'white'
-    default:
-      return 'primary'
+  if (props.startSolved) {
+    switch (props.value) {
+      case 0:
+        return 'white'
+      default:
+        return 'primary'
+    }
+  } else {
+    switch (state.value) {
+      case CellState.Empty:
+        return 'white'
+      default:
+        return 'primary'
+    }
   }
 })
 
