@@ -7,21 +7,28 @@
           @playerUpdate="(values) => updateGameState(values)"
         />
       </v-col>
+      <v-alert v-if="gameWon" color="green">Congrats!!!</v-alert>
     </v-row>
   </v-container>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, reactive } from 'vue'
+import { ref, onMounted, reactive, computed } from 'vue'
 import Axios from 'axios'
 import type Puzzle from '../models'
 import { useRoute } from 'vue-router'
 import PicrossBoard from '@/components/Picross/PicrossBoard.vue'
-import { Picross } from '@/scripts/picross'
+import { Picross, GameState } from '@/scripts/picross'
 
 const gamePuzzle = ref<Puzzle>()
 const router = useRoute()
 const Game = reactive<Picross>(new Picross())
+const gameWon = computed(() => {
+  if (Game.gameState === GameState.Playing) {
+    return false
+  }
+  return true
+})
 
 const id = router.params.id
 

@@ -4,11 +4,13 @@ export class Picross {
   public solution: number[][]
   public playerStates: number[][]
   public size: number
+  public gameState: GameState
 
   constructor() {
     this.solution = []
     this.size = 0
     this.playerStates = []
+    this.gameState = GameState.Playing
   }
 
   public async startNewGame() {
@@ -19,6 +21,7 @@ export class Picross {
         this.playerStates[i][j] = 0
       }
     }
+    this.gameState = GameState.Playing
   }
 
   public setSolution(solution: number[][]) {
@@ -36,9 +39,7 @@ export class Picross {
 
   public checkForWin() {
     if (_.isEqual(this.solution, this.playerStates)) {
-      console.log('Winnner')
-    } else {
-      console.log('keep trying!!!')
+      this.gameState = GameState.Won
     }
   }
 }
