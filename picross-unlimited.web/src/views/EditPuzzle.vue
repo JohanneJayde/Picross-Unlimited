@@ -1,6 +1,6 @@
 <template>
   <v-container v-if="gamePuzzle">
-    <v-card class="pa-3 mb-5" color="primary">
+    <v-card class="pa-3 mb-5" :color="gamePuzzle.color">
       <v-card-title>Edit Puzzle</v-card-title>
     </v-card>
     <v-row>
@@ -9,6 +9,8 @@
           <v-card-title>Edit Puzzle</v-card-title>
         <v-text-field v-model="title" label="Title" />
         <v-text-field v-model="description" label="Description" />
+        <v-text-field v-model="maxClicks" label="Max Clicks" />
+        <v-select v-model="color" :items="htmlColors" label="Colors"/>
         <v-select
           v-model="difficulty"
           :items="[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
@@ -37,6 +39,7 @@ import type Puzzle from '../models'
 import { useRoute, useRouter } from 'vue-router'
 import PicrossBoard from '@/components/Picross/PicrossBoard.vue'
 import { Picross, GameState } from '@/scripts/picross'
+import htmlColors from '@/scripts/colors'
 
 const gamePuzzle = ref<Puzzle>()
 const route = useRoute()
@@ -45,6 +48,8 @@ const Game = reactive<Picross>(new Picross())
 const title = ref('')
 const description = ref('')
 const difficulty = ref(1)
+const maxClicks = ref(0)
+const color = ref('')
 
 const id = route.params.id
 
@@ -64,7 +69,9 @@ onMounted(() => {
         size: puzzle.size,
         creator: puzzle.creator,
         dateCreated: puzzle.dateCreated,
-        solution: JSON.parse(puzzle.solution)
+        solution: JSON.parse(puzzle.solution),
+        color: puzzle.color,
+        maxClicks: puzzle.maxClicks
       }
       Game.setSize(gamePuzzle.value.size)
       Game.setSolution(gamePuzzle.value.solution)
@@ -74,6 +81,8 @@ onMounted(() => {
       title.value = gamePuzzle.value.title
       description.value = gamePuzzle.value.description
       difficulty.value = gamePuzzle.value.difficulty
+      maxClicks.value = gamePuzzle.value.maxClicks
+      color.value = gamePuzzle.value.color.toLowerCase()
     })
     .catch((error) => {
       console.error('Error fetching puzzles:', error)
@@ -81,7 +90,7 @@ onMounted(() => {
 })
 
 function savePuzzle() {
-  const success: boolean = Game.SavePuzzle(title.value, description.value, difficulty.value)
+  const success: boolean = Game.SavePuzzle(title.value, description.value, difficulty.value, maxClicks.value, color.value)
   if (success) {
     router.push({ name: 'Puzzle Editor' })
   } else {

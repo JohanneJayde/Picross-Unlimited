@@ -56,13 +56,15 @@ export class Picross {
     }
   }
 
-  public async SavePuzzle(title: string, description: string, difficulty: number): boolean {
+  public async SavePuzzle(title: string, description: string, difficulty: number, maxClicks: number, color: string): Promise<boolean> {
     const isSuccessful = Axios.post('Puzzle/SavePuzzle', {
       id: this.puzzle?.id,
       title: title,
       description: description,
       difficulty: difficulty,
-      solution: JSON.stringify(this.solution)
+      solution: JSON.stringify(this.solution),
+      color: color.toLowerCase(),
+      maxClicks: maxClicks
     }).then((response) => {
       return response.data
     })

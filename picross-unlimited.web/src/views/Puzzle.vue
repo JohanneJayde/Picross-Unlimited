@@ -1,7 +1,7 @@
 <template>
   <v-container v-if="gamePuzzle">
-    <v-alert v-if="gameWon" color="green">Congrats!!!</v-alert>
-    <v-card class="pa-3" color="primary">
+    <v-alert v-if="gameWon" :color="green">Congrats!!!</v-alert>
+    <v-card class="pa-3" :color="gamePuzzle.color">
       <v-card-title>{{ gamePuzzle.title }}</v-card-title>
       <v-card-subtitle>{{ gamePuzzle.description }}</v-card-subtitle>
     </v-card>
@@ -70,7 +70,9 @@ onMounted(() => {
         size: puzzle.size,
         creator: puzzle.creator,
         dateCreated: puzzle.dateCreated,
-        solution: JSON.parse(puzzle.solution)
+        solution: JSON.parse(puzzle.solution),
+        color: puzzle.color,
+        maxClicks: puzzle.maxClicks
       }
       Game.setSize(gamePuzzle.value.size)
       Game.setSolution(gamePuzzle.value.solution)

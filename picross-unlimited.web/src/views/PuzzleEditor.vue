@@ -43,7 +43,9 @@ Axios.get('Puzzle/Users/' + tokenService.getSub())
         size: puzzle.size,
         creator: puzzle.creator,
         dateCreated: puzzle.dateCreated,
-        solution: JSON.parse(puzzle.solution)
+        solution: JSON.parse(puzzle.solution),
+        maxClicks: puzzle.maxClicks,
+        color: puzzle.color
       })
     })
   })

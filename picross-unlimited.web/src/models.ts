@@ -7,6 +7,8 @@ export default interface Puzzle {
   solution: number[][]
   creator: string
   dateCreated: string
+  color: string
+  maxClicks: number
 }
 
 export default interface UpdatePuzzle {
@@ -15,4 +17,7 @@ export default interface UpdatePuzzle {
   description: string
   difficulty: number
   solution: number[][]
+  color: string
+  maxClicks: number
+
 }
