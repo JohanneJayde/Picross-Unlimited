@@ -7,6 +7,8 @@ namespace Picross_Unlimited.Api.Models
 {
     public class AppDbContext : IdentityDbContext<AppUser>
     {
+            public DbSet<Puzzle> Puzzles { get; set; }
+
             public AppDbContext(DbContextOptions<AppDbContext> options)
                 : base(options)
         {
@@ -18,6 +20,8 @@ namespace Picross_Unlimited.Api.Models
         protected override void OnModelCreating(ModelBuilder builder)
             {
                 base.OnModelCreating(builder);
+                //Make Cells be a json file
+                builder.Entity<Puzzle>().OwnsOne(Puzzle => Puzzle.Cells, builder => { builder.ToJson(); });
             }
         }
     }
