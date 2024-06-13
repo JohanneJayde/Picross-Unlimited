@@ -1,8 +1,11 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <v-container>
+    <v-card class="pa-3 mb-4" color="primary">
+          <v-card-title>Puzzles</v-card-title>
+        </v-card>
     <v-row justify="center">
-      <v-col cols="12" md="8">
+      <v-col cols="12">
         <PuzzleGroup :puzzles="Puzzles" />
       </v-col>
     </v-row>

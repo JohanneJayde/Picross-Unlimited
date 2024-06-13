@@ -95,7 +95,7 @@ namespace Picross_Unlimited.Api.Services
             return false;
         }
 
-        public async Task<bool> CreatePuzzle(NewPuzzleDto puzzleDto)
+        public async Task<int> CreatePuzzle(NewPuzzleDto puzzleDto)
         {
             var puzzle = new Puzzle()
             {
@@ -110,9 +110,14 @@ namespace Picross_Unlimited.Api.Services
 
             await Db.AddAsync(puzzle);
 
+
             await Db.SaveChangesAsync();
 
-            return true;
+            var addedPuzzle = Db.Puzzles.FirstAsync(puzzle => puzzle.Creator == puzzleDto.Creator && puzzle.Title == puzzleDto.Title);
+
+            int Id = addedPuzzle.Result.PuzzleId;
+            
+            return Id;
         }
     }
 }

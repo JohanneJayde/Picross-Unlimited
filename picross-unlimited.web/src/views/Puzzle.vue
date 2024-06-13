@@ -6,10 +6,10 @@
       <v-card-subtitle>{{ gamePuzzle.description }}</v-card-subtitle>
     </v-card>
     <v-row align="center" justify="center">
-      <v-col cols="6">
+      <v-col cols="2">
         <v-btn @click="mistakeMode = !mistakeMode">Show Mistakes</v-btn>
       </v-col>
-      <v-col cols="6">
+      <v-col cols="10">
         <PicrossBoard
           :solution="gamePuzzle.solution"
           @playerUpdate="(values) => updateGameState(values)"

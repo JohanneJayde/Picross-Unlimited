@@ -1,17 +1,22 @@
 <template>
   <v-container v-if="tokenService.isLoggedIn()">
     <v-row justify="center">
-      <v-col cols="12" md="8">
+      <v-col cols="12" md="12">
+        
         <v-card class="pa-3 mb-4" color="primary">
-          <v-card-title>My Puzles</v-card-title>
+          <v-card-title>Puzzle Editor</v-card-title>
         </v-card>
-        <v-btn @click="createPuzzle">Create Puzzle</v-btn>
-        <v-select v-model="Size" :items="[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" label="Size of Puzzle" />
+        
+        <v-btn class="ma-3" @click="showAddPuzzleDialog = true" color="primary">Create Puzzle</v-btn>
+
         <PuzzleGroup :puzzles="Puzzles" :edit="true" />
       </v-col>
     </v-row>
   </v-container>
-  <v-card v-else> Sorry you must be logged in to create and edit Puzzles :(</v-card>
+  <v-card v-else> 
+    Sorry you must be logged in to create and edit Puzzles :(
+  </v-card>
+  <AddPuzzleDialog v-model="showAddPuzzleDialog" @close="showAddPuzzleDialog = false" />
 </template>
 <script setup lang="ts">
 import { ref } from 'vue'
@@ -19,10 +24,12 @@ import Axios from 'axios'
 import type Puzzle from '../models'
 import PuzzleGroup from '@/components/PuzzleGroup.vue'
 import TokenService from '@/scripts/tokenService'
+import AddPuzzleDialog from '@/components/AddPuzzleDialog.vue'
 
 const tokenService = new TokenService()
 
 const Puzzles = ref<Puzzle[]>([])
+const showAddPuzzleDialog = ref(false);
 
 Axios.get('Puzzle/Users/' + tokenService.getSub())
   .then((response) => response.data)
@@ -44,22 +51,4 @@ Axios.get('Puzzle/Users/' + tokenService.getSub())
     console.error('Error fetching puzzles:', error)
   })
 
-const Size = ref(5)
-function createPuzzle() {
-  Axios.post('Puzzle/CreatePuzzle', {
-    title: 'New Puzzle',
-    description: 'New Puzzle',
-    difficulty: 1,
-    size: Size.value,
-    creator: tokenService.getSub(),
-    dateCreated: new Date(),
-    solution: JSON.stringify(new Array(Size.value).fill(new Array(Size.value).fill(0)))
-  })
-    .then((response) => {
-      console.log('Puzzle created:', response.data)
-    })
-    .catch((error) => {
-      console.error('Error creating puzzle:', error)
-    })
-}
 </script>

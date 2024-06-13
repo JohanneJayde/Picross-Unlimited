@@ -1,11 +1,12 @@
 <template>
   <v-container v-if="gamePuzzle">
-    <v-card class="pa-3" color="primary">
-      <v-card-title>{{ gamePuzzle.title }}</v-card-title>
-      <v-card-subtitle>{{ gamePuzzle.description }}</v-card-subtitle>
+    <v-card class="pa-3 mb-5" color="primary">
+      <v-card-title>Edit Puzzle</v-card-title>
     </v-card>
-    <v-row align="center" justify="center">
-      <v-col>
+    <v-row>
+      <v-col cols="3">
+        <v-card color="secondary" class="pa-3" rounded>
+          <v-card-title>Edit Puzzle</v-card-title>
         <v-text-field v-model="title" label="Title" />
         <v-text-field v-model="description" label="Description" />
         <v-select
@@ -13,8 +14,11 @@
           :items="[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
           label="Difficulty"
         />
+        <v-btn @click="savePuzzle">Save</v-btn>
+
+      </v-card>
       </v-col>
-      <v-col cols="6">
+      <v-col cols="auto">
         <PicrossBoard
           :solution="gamePuzzle.solution"
           @playerUpdate="(values) => updateGameState(values)"
@@ -23,7 +27,6 @@
         />
       </v-col>
     </v-row>
-    <v-btn @click="savePuzzle">Save</v-btn>
   </v-container>
 </template>
 

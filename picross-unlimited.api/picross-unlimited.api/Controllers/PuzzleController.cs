@@ -42,10 +42,10 @@ public class PuzzleController(PuzzleService PuzzleService) : Controller
     }
 
     [HttpPost("CreatePuzzle")]
-    public async Task<bool> Create(NewPuzzleDto puzzle) 
+    public async Task<int> Create(NewPuzzleDto puzzle) 
     { 
-        bool isSuccess = await PuzzleService.CreatePuzzle(puzzle);
-        return isSuccess;
+        int puzzleId = await PuzzleService.CreatePuzzle(puzzle);
+        return puzzleId;
     }
 
 }
