@@ -19,5 +19,13 @@ public class GameController(GameService GameService) : Controller
 
         return isSuccessful;
     }
+
+    [HttpGet("Stats/${username}")]
+    public async Task<List<GameDetailsDto>> GetAllGameStats(string username)
+    {
+        var gameDetails = await GameService.GetGameDetails(username);
+
+        return gameDetails;
+    }
 }
 

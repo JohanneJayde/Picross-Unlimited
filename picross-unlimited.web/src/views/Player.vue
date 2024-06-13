@@ -1,16 +1,8 @@
 <template>
-  <v-container class="d-flex justify-center">
-    <v-col>
-      <v-card>
-        <v-card-title class="d-flex justify-center">Player</v-card-title>
-        <v-card-text class="d-flex justify-center">
-          The player homepage to display stats and edit your profile
-        </v-card-text>
-        <v-card-actions>
-          <v-btn color="primary" to="/game">Play Game</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col>
+  <v-container>
+      <v-card class="pa-3 mb-4" color="primary">
+        <v-card-title>{{ userName + "'s Profile" }}</v-card-title>
+        </v-card>    
   </v-container>
 
   <v-container>
@@ -18,6 +10,7 @@
       <v-col cols="20" class="d-flex justify-center">
         <v-card>
           <v-card-title class="d-flex justify-center">Player Stats</v-card-title>
+          <v-data-table :items="gameStats"/>
         </v-card>
       </v-col>
     </v-row>
@@ -32,6 +25,16 @@
   </v-container>
 </template>
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import {GameDetail} from '@/models'
+import TokenService from '@/scripts/tokenService'
+import Axios from 'axios'
+
+
+const tokenService = new TokenService()
+const userName = tokenService.getUserName() ?? 'Guest'
+const gameStats : ref<GameDetail[]> = ref([])
+
 const colors: { color: string }[] = [
   {
     color: 'Red'
@@ -46,4 +49,21 @@ function changeColor(colors: { color: string }) {
     title: colors.color
   }
 }
+
+onMounted(() => {
+  console.log('User:', tokenService.getUserName())
+
+  Axios.get('Game/Stats/$' + tokenService.getUserName())
+    .then((response) => {
+      gameStats.value = response.data
+      console.log('Stats:', gameStats.value)
+    })
+    .catch((error) => {
+      console.error('Error fetching stats:', error)
+    }
+  );
+
+})
+
+
 </script>

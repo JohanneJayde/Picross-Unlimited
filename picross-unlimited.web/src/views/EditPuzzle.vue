@@ -5,7 +5,7 @@
     </v-card>
     <v-row>
       <v-col cols="3">
-        <v-card color="secondary" class="pa-3" rounded>
+        <v-card :color="gamePuzzle.color" class="pa-3" rounded>
           <v-card-title>Edit Puzzle</v-card-title>
         <v-text-field v-model="title" label="Title" />
         <v-text-field v-model="description" label="Description" />

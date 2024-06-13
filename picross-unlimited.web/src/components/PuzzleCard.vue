@@ -1,22 +1,24 @@
 <template>
-  <v-card :color="props.puzzle.color" class="border" rounded>
-    <v-card-title>{{ props.puzzle.title }}</v-card-title>
+  <v-card :color="props.puzzle.color" class="rounded-xl pa-3" rounded>
+    <v-card-title class="font-weight-bold">{{ props.puzzle.title }}</v-card-title>
     <v-card-subtitle>{{ props.puzzle.description }}</v-card-subtitle>
-
-    <v-card-text> Size: {{ props.puzzle.size }} </v-card-text>
-    <v-card-text> Creator: {{ props.puzzle.creator }} </v-card-text>
-    <v-card-text> Date Created: {{ formattedDate }} </v-card-text>
-    <v-card-text> Max Clicks {{ props.puzzle.maxClicks }}</v-card-text>
-    <v-card-text>
-      <v-progress-circular :model-value="difficulty * 10" :size="90" :width="15" color="white">
+    
+    <v-card-item>
+      <v-chip variant="tonal" class="ma-1"> Size: {{ props.puzzle.size }} </v-chip>
+      <v-chip variant="tonal"  class="ma-1"> Creator: {{ props.puzzle.creator }} </v-chip>
+      <v-chip variant="tonal"  class="ma-1"> {{ formattedDate }} </v-chip>
+      <v-chip variant="tonal"  class="ma-1"> Max Clicks; {{ props.puzzle.maxClicks }} </v-chip>
+    </v-card-item>
+    <v-card-item>
+      <v-progress-circular :model-value="difficulty * 10" :size="60" :width="10" class="ma-1" color="white">
         {{ difficulty }}
       </v-progress-circular>
-    </v-card-text>
+    </v-card-item>
     <v-card-actions>
-      <v-btn :to="`Puzzle/${props.puzzle.id}`">Play</v-btn>
-      <v-btn v-if="EditMode" :to="`EditPuzzle/${props.puzzle.id}`">Edit</v-btn>
-      <v-btn v-if="EditMode" @click="$emit('delete', props.puzzle.id)">Delete</v-btn>
-
+      <v-spacer></v-spacer>
+      <v-btn rounded variant="tonal" :to="`Puzzle/${props.puzzle.id}`">Play</v-btn>
+      <v-btn rounded  variant="tonal"  v-if="EditMode" :to="`EditPuzzle/${props.puzzle.id}`">Edit</v-btn>
+      <v-btn rounded  variant="tonal" v-if="EditMode" @click="$emit('delete', props.puzzle.id)">Delete</v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -35,7 +37,7 @@ const props = withDefaults(
 )
 
 defineEmits<{
-  (e: 'delete', puzzleId : number): void
+  (e: 'delete', puzzleId: number): void
 }>()
 
 const formattedDate = formatDate(new Date(props.puzzle.dateCreated), 'MMMM do, yyyy')
