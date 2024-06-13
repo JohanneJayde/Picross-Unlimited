@@ -47,35 +47,23 @@ public static class IdentitySeed
             }
         }
 
-    }
-    //i don't think this is needed. Need second opinion. Creates a default user
-    private static async Task SeedUserAccountAsync(UserManager<AppUser> appUser, RoleManager<IdentityRole> roleManager, AppDbContext context )
-    {
-        var userEmails = new[]
+        if (await userManager.FindByEmailAsync("Admin@intellitect.com") == null)
         {
-            new {UserName = "Admin", Email = "Admin@Admin.com", Role = "Admin", ProfileColor = "Secondary", ProfileIcon = "\\eb3b"}
-        };
-        foreach(var allUsers in userEmails)
-        {
-            if(!context.Users.Any( u => u.UserName == allUsers.UserName))
+            AppUser user = new AppUser
             {
-                AppUser user = new AppUser
-                {
-                    ProfileIcon = "\\eb3b",
-                    ProfileColor = "Primary",
-                    UserName = "new_user",
-                    Email = "default@default.com"
+                ProfileColor = "Secondary",
+                ProfileIcon = "\\eb3b",
+                UserName = "Admin@intellitect.com",
+                Email = "Admin@intellitect.com"
+            };
 
-                };
-                var result = await appUser.CreateAsync(user, allUsers.Email);
-                if(result.Succeeded)
-                {
-                    await appUser.AddToRoleAsync(user, allUsers.Role);
-                }
+            IdentityResult result = userManager.CreateAsync(user, "P@ssw0rd123").Result;
+
+            if (result.Succeeded)
+            {
+                await userManager.AddToRoleAsync(user, Roles.Admin);
             }
-
         }
-       
 
     }
 }
