@@ -13,11 +13,7 @@
 
           <v-row>
             <v-col cols="6">
-              <v-select v-model="color" :items="htmlColors" label="Colors">
-                <template v-slot:prepend-item>
-                  <v-chip :color="item">{{ item }}</v-chip>
-                </template>
-              </v-select>
+              <v-select v-model="color" :items="htmlColors" label="Colors"> </v-select>
             </v-col>
 
             <v-col cols="6">

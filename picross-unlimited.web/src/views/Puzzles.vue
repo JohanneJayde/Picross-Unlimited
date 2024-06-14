@@ -2,8 +2,8 @@
 <template>
   <v-container>
     <v-card class="pa-3 mb-4" color="primary">
-          <v-card-title>Puzzles</v-card-title>
-        </v-card>
+      <v-card-title>Puzzles</v-card-title>
+    </v-card>
     <v-row justify="center">
       <v-col cols="12">
         <PuzzleGroup :puzzles="Puzzles" />
@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import Axios from 'axios'
-import type Puzzle from '../models'
+import type Puzzle from '../models/puzzle'
 import PuzzleGroup from '@/components/PuzzleGroup.vue'
 
 const Puzzles = ref<Puzzle[]>([])

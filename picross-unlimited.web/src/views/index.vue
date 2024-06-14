@@ -1,4 +1,4 @@
-// eslint-disable-next-line vue/multi-word-component-names
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <v-container class="fill-height d-flex align-center justify-center">
     <v-row class="justify-center">
@@ -14,4 +14,3 @@
     </v-row>
   </v-container>
 </template>
-
