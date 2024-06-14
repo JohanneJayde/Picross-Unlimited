@@ -1,4 +1,4 @@
-# Picross-Unlimited
+# Picross Unlimited
 
 Azure Site URL: https://jolly-flower-0d95a501e.5.azurestaticapps.net/
 
