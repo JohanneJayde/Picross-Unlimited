@@ -1,4 +1,4 @@
-import type Puzzle from '@/models'
+import type Puzzle from '@/models/puzzle'
 import Axios from 'axios'
 import _ from 'lodash'
 
@@ -17,6 +17,7 @@ export class Picross {
     this.playerStates = []
     this.gameState = GameState.Playing
     this.playerClicks = 0
+    this.maxClicks = 0
   }
 
   public async startEditor() {
