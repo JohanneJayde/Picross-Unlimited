@@ -82,6 +82,7 @@ import TokenService from '@/scripts/tokenService'
 import type Puzzle from '@/models/puzzle'
 import _ from 'lodash'
 import Axios from 'axios'
+import PuzzleUtils from '@/scripts/puzzleUtils'
 
 const tokenService = new TokenService()
 const userName = tokenService.getUserName() ?? 'Guest'
@@ -89,7 +90,7 @@ const gameStats = ref<GameDetail[]>([])
 
 const puzzles = ref<Puzzle[]>([])
 
-onMounted(() => {
+onMounted(async () => {
   console.log('User:', tokenService.getUserName())
 
   Axios.get('Game/Stats/$' + tokenService.getUserName())
@@ -100,27 +101,7 @@ onMounted(() => {
     .catch((error) => {
       console.error('Error fetching stats:', error)
     })
-})
 
-Axios.get('Puzzle/Users/' + tokenService.getSub())
-  .then((response) => response.data)
-  .then((date) => {
-    date.map((puzzle: Puzzle) => {
-      puzzles.value.push({
-        id: puzzle.id,
-        title: puzzle.title,
-        description: puzzle.description,
-        difficulty: puzzle.difficulty,
-        size: puzzle.size,
-        creator: puzzle.creator,
-        dateCreated: puzzle.dateCreated,
-        solution: puzzle.solution,
-        maxClicks: puzzle.maxClicks,
-        color: puzzle.color
-      })
-    })
-  })
-  .catch((error) => {
-    console.error('Error fetching puzzles:', error)
-  })
+  puzzles.value = await PuzzleUtils.getUserPuzzles(tokenService.getSub())
+})
 </script>
