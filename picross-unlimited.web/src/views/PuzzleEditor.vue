@@ -1,15 +1,15 @@
 <template>
   <v-container v-if="tokenService.isLoggedIn()">
     <v-row justify="center">
-      <v-col cols="12" md="12">
-        <v-card class="pa-3 mb-4" color="primary">
+      <v-col cols="12">
+        <v-card class="pa-3" color="primary">
           <v-card-title>Puzzle Editor</v-card-title>
         </v-card>
-
-        <v-btn class="ma-3" @click="showAddPuzzleDialog = true" color="primary"
-          >Create Puzzle</v-btn
-        >
-
+      </v-col>
+      <v-col cols="12">
+        <v-btn @click="showAddPuzzleDialog = true" color="primary" rounded>Create Puzzle</v-btn>
+      </v-col>
+      <v-col cols="12">
         <PuzzleGroup :puzzles="Puzzles" :edit="true" @deletePuzzle="removePuzzle" />
       </v-col>
     </v-row>

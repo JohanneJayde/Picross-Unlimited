@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <v-container>
     <v-card class="pa-3 mb-4" color="primary">

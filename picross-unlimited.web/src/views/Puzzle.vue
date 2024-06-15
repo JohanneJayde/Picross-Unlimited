@@ -1,24 +1,37 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <v-container v-if="puzzle">
-    <v-card class="pa-3" :color="puzzle.color">
-      <v-card-title>{{ puzzle.title }}</v-card-title>
-      <v-card-subtitle>{{ puzzle.description }}</v-card-subtitle>
-      <v-card-subtitle>Difficulty: {{ puzzle.difficulty }}</v-card-subtitle>
-      <v-card-subtitle>Creator: {{ puzzle.creator }}</v-card-subtitle>
-      <v-card-subtitle>Date Created: {{ puzzle.dateCreated }}</v-card-subtitle>
+  <v-container v-if="gamePuzzle">
+    <v-card class="pa-3" :color="gamePuzzle.color">
+      <v-row>
+        <v-col cols="auto" align="center">
+          <v-card-title>Max Clicks: {{ gamePuzzle.maxClicks }}</v-card-title>
+          <v-progress-circular
+            :model-value="(count / gamePuzzle.maxClicks) * 100"
+            :size="80"
+            :width="15"
+            class="ma-1"
+          >
+            {{ count }}
+          </v-progress-circular>
+        </v-col>
+        <v-divider vertical thickness="10" opacity=".5" />
+        <v-col cols="6">
+          <v-card-title>{{ gamePuzzle.title }}</v-card-title>
+          <v-card-subtitle>{{ gamePuzzle.description }}</v-card-subtitle>
+          <v-card-subtitle>Difficulty: {{ gamePuzzle.difficulty }}</v-card-subtitle>
+          <v-card-subtitle>Creator: {{ gamePuzzle.creator }}</v-card-subtitle>
+          <v-card-subtitle>Date Created: {{ gamePuzzle.dateCreated }}</v-card-subtitle>
+        </v-col>
+      </v-row>
     </v-card>
-    <v-row align="center" justify="center">
-      <v-col cols="12">
-        <PicrossBoard
-          :solution="JSON.parse(puzzle.solution)"
-          @playerUpdate="(values) => updateGameState(values)"
-          :mistakeMode="mistakeMode"
-          :loadSolution="false"
-          :correctColor="puzzle.color"
-        />
-      </v-col>
-    </v-row>
+    <PicrossBoard
+      :solution="JSON.parse(gamePuzzle.solution)"
+      @playerUpdate="(values) => updateGameState(values)"
+      :mistakeMode="mistakeMode"
+      :loadSolution="false"
+      :correctColor="gamePuzzle.color"
+    />
+
     <v-dialog v-model="showEndScreen" persistent>
       <v-card
         width="500"
@@ -46,10 +59,8 @@ import { useRoute } from 'vue-router'
 import PicrossBoard from '@/components/Picross/PicrossBoard.vue'
 import { Picross, GameState } from '@/scripts/picross'
 import TokenService from '@/scripts/tokenService'
-import PuzzleUtils from '@/scripts/puzzleUtils'
-import { toNumber } from 'lodash'
 
-const puzzle = ref<Puzzle>()
+const gamePuzzle = ref<Puzzle>()
 const router = useRoute()
 const Game = reactive<Picross>(new Picross())
 const mistakeMode = ref(false)
@@ -69,7 +80,7 @@ watch(Game, () => {
     showEndScreen.value = true
     Axios.post(`/Game/Post/`, {
       username: tokenService.getUserName(),
-      puzzleId: puzzle.value!.id,
+      puzzleId: gamePuzzle.value!.id,
       isWin: Game.gameState == GameState.Won,
       numberOfClicks: count.value
     })
@@ -82,11 +93,29 @@ watch(Game, () => {
   }
 })
 
-onMounted(async () => {
-  puzzle.value = await PuzzleUtils.getPuzzleById(toNumber(id))
-  Game.setSize(puzzle.value!.size)
-  Game.setSolution(JSON.parse(puzzle.value!.solution))
-  Game.SetMaxClicks(puzzle.value!.maxClicks)
-  Game.startNewGame()
+onMounted(() => {
+  Axios.get(`/Puzzle/${id}`)
+    .then((response) => response.data)
+    .then((puzzle: Puzzle) => {
+      gamePuzzle.value = {
+        id: puzzle.id,
+        title: puzzle.title,
+        description: puzzle.description,
+        difficulty: puzzle.difficulty,
+        size: puzzle.size,
+        creator: puzzle.creator,
+        dateCreated: puzzle.dateCreated,
+        solution: puzzle.solution,
+        color: puzzle.color,
+        maxClicks: puzzle.maxClicks
+      }
+      Game.setSize(gamePuzzle.value!.size)
+      Game.setSolution(JSON.parse(gamePuzzle.value!.solution))
+      Game.SetMaxClicks(gamePuzzle.value!.maxClicks)
+      Game.startNewGame()
+    })
+    .catch((error) => {
+      console.error('Error fetching puzzles:', error)
+    })
 })
 </script>

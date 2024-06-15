@@ -1,7 +1,7 @@
 <template>
   <v-btn
-    height="75"
-    width="75"
+    height="50"
+    width="50"
     :color="stateColor"
     :rounded="false"
     @click="handleState"

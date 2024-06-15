@@ -3,5 +3,5 @@ export default interface GameDetails {
   numberOfClicks: number
   puzzleId: number
   puzzleTitle: string
-  DatePlayed: Date
+  datePlayed: Date
 }
