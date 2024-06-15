@@ -24,7 +24,7 @@
       </v-col>
       <v-col cols="auto">
         <PicrossBoard
-          :solution="JSON.parse(puzzle.solution)"
+          :solution="solution"
           @playerUpdate="(values) => updateGameState(values)"
           :mistakeMode="false"
           :loadSolution="isEditing"
@@ -55,11 +55,13 @@ const difficulty = ref(1)
 const maxClicks = ref(0)
 const color = ref('')
 const isEditing = ref(true)
+const solution = ref<number[][]>([])
 
 const id = route.params.id
 
 function updateGameState(values: number[]) {
   Game.updatePlayerState(values)
+  solution.value[values[0]][values[1]] = values[2]
 }
 
 onMounted(async () => {
@@ -74,6 +76,7 @@ onMounted(async () => {
   difficulty.value = puzzle.value!.difficulty
   maxClicks.value = puzzle.value!.maxClicks
   color.value = puzzle.value!.color.toLowerCase()
+  solution.value = JSON.parse(puzzle.value!.solution)
 })
 
 async function savePuzzle() {
