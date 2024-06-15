@@ -28,33 +28,14 @@ import type Puzzle from '../models/puzzle'
 import PuzzleGroup from '@/components/PuzzleGroup.vue'
 import TokenService from '@/scripts/tokenService'
 import AddPuzzleDialog from '@/components/AddPuzzleDialog.vue'
+import PuzzleUtils from '@/scripts/puzzleUtils'
 
 const tokenService = new TokenService()
 
 const Puzzles = ref<Puzzle[]>([])
 const showAddPuzzleDialog = ref(false)
 
-Axios.get('Puzzle/Users/' + tokenService.getSub())
-  .then((response) => response.data)
-  .then((date) => {
-    date.map((puzzle: Puzzle) => {
-      Puzzles.value.push({
-        id: puzzle.id,
-        title: puzzle.title,
-        description: puzzle.description,
-        difficulty: puzzle.difficulty,
-        size: puzzle.size,
-        solution: puzzle.solution,
-        creator: puzzle.creator,
-        dateCreated: puzzle.dateCreated,
-        color: puzzle.color,
-        maxClicks: puzzle.maxClicks
-      })
-    })
-  })
-  .catch((error) => {
-    console.error('Error fetching puzzles:', error)
-  })
+Puzzles.value = await PuzzleUtils.getUserPuzzles(tokenService.getSub())
 
 function removePuzzle(id: number) {
   console.log('Deleting puzzle:', id)

@@ -12,32 +12,14 @@
   </v-container>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
-import Axios from 'axios'
+import { ref, onMounted } from 'vue'
 import type Puzzle from '../models/puzzle'
 import PuzzleGroup from '@/components/PuzzleGroup.vue'
+import PuzzleUtils from '@/scripts/puzzleUtils'
 
 const Puzzles = ref<Puzzle[]>([])
 
-Axios.get('/Puzzle/AllPuzzles')
-  .then((response) => response.data)
-  .then((date) => {
-    date.map((puzzle: Puzzle) => {
-      Puzzles.value.push({
-        id: puzzle.id,
-        title: puzzle.title,
-        description: puzzle.description,
-        difficulty: puzzle.difficulty,
-        size: puzzle.size,
-        creator: puzzle.creator,
-        dateCreated: puzzle.dateCreated,
-        solution: JSON.parse(puzzle.solution),
-        maxClicks: puzzle.maxClicks,
-        color: puzzle.color
-      })
-    })
-  })
-  .catch((error) => {
-    console.error('Error fetching puzzles:', error)
-  })
+onMounted(async () => {
+  Puzzles.value = await PuzzleUtils.getAllPuzzles()
+})
 </script>

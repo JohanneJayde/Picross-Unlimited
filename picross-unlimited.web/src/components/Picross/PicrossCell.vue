@@ -5,7 +5,6 @@
     :color="stateColor"
     :rounded="false"
     @click="handleState"
-    @contextmenu.prevent="handleRightClick"
     :icon="chosenIcon"
     :class="[
       type !== CellType.Playable ? 'no-pointer' : '',
@@ -38,7 +37,7 @@
 </style>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { CellState, CellType } from '@/scripts/enums'
 
 const props = withDefaults(
@@ -64,27 +63,7 @@ const chosenIcon = ref('')
 const state = ref(CellState.Empty)
 const playerState = ref(0)
 
-const stateColor = computed(() => {
-  if (props.type === CellType.Hint) {
-    return '#add8e6'
-  }
-
-  if (props.startSolved) {
-    switch (props.value) {
-      case 0:
-        return 'white'
-      default:
-        return props.correctColor;
-    }
-  } else {
-    switch (state.value) {
-      case CellState.Empty:
-        return 'white'
-      default:
-        return props.correctColor;
-    }
-  }
-})
+const stateColor = ref(props.type === CellType.Hint ? '#89cff0' : 'white')
 
 watch(
   () => state.value,
@@ -99,10 +78,12 @@ function handleState() {
   let stateValue = 0
   if (state.value === CellState.Empty) {
     state.value = CellState.Filled
+    stateColor.value = props.correctColor
     playerState.value = 1
     stateValue = 1
   } else {
     state.value = CellState.Empty
+    stateColor.value = 'white'
     playerState.value = 0
 
     stateValue = 0
@@ -111,13 +92,13 @@ function handleState() {
   emits('stateChange', stateValue)
 }
 
-function handleRightClick() {
-  if (chosenIcon.value === '') {
-    state.value = CellState.Empty
-    chosenIcon.value = 'mdi-close'
-  } else {
-    state.value = CellState.Empty
-    chosenIcon.value = ''
+onMounted(() => {
+  if (props.startSolved) {
+    if (props.value === 1 && props.type === CellType.Playable) {
+      state.value = CellState.Filled
+      stateColor.value = props.correctColor
+      playerState.value = 1
+    }
   }
-}
+})
 </script>

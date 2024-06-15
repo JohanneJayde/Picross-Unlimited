@@ -1,14 +1,14 @@
 <template>
-  <v-container v-if="gamePuzzle">
-    <v-card class="pa-3 mb-5" :color="gamePuzzle.color">
-      <v-card-title>Edit Puzzle</v-card-title>
+  <v-container v-if="puzzle">
+    <v-card class="pa-3 mb-5" :color="color">
+      <v-card-title>{{ title === '' ? 'Edit Puzzle' : title }}</v-card-title>
     </v-card>
     <v-row>
       <v-col cols="3">
-        <v-card :color="gamePuzzle.color" class="pa-3" rounded>
-          <v-card-title>Edit Puzzle</v-card-title>
+        <v-card :color="color" class="pa-3 rounded-xl">
+          <v-card-title class="text-uppercase text-center">Edit Puzzle</v-card-title>
           <v-text-field v-model="title" label="Title" />
-          <v-text-field v-model="description" label="Description" />
+          <v-textarea v-model="description" label="Description" />
           <v-text-field v-model="maxClicks" label="Max Clicks" />
           <v-select v-model="color" :items="htmlColors" label="Colors" />
           <v-select
@@ -16,16 +16,19 @@
             :items="[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
             label="Difficulty"
           />
-          <v-btn @click="savePuzzle">Save</v-btn>
+          <v-card-actions>
+            <v-spacer />
+            <v-btn @click="savePuzzle">Save</v-btn>
+          </v-card-actions>
         </v-card>
       </v-col>
       <v-col cols="auto">
         <PicrossBoard
-          :solution="JSON.parse(gamePuzzle.solution)"
+          :solution="JSON.parse(puzzle.solution)"
           @playerUpdate="(values) => updateGameState(values)"
           :mistakeMode="false"
-          :loadSolution="true"
-          :correctColor="gamePuzzle.color"
+          :loadSolution="isEditing"
+          :correctColor="puzzle.color"
         />
       </v-col>
     </v-row>
@@ -34,14 +37,15 @@
 
 <script setup lang="ts">
 import { ref, onMounted, reactive } from 'vue'
-import Axios from 'axios'
 import type Puzzle from '../models/puzzle'
 import { useRoute, useRouter } from 'vue-router'
 import PicrossBoard from '@/components/Picross/PicrossBoard.vue'
 import { Picross } from '@/scripts/picross'
 import htmlColors from '@/scripts/colors'
+import PuzzleUtils from '@/scripts/puzzleUtils'
+import { toNumber } from 'lodash'
 
-const gamePuzzle = ref<Puzzle>()
+const puzzle = ref<Puzzle>()
 const route = useRoute()
 const router = useRouter()
 const Game = reactive<Picross>(new Picross())
@@ -50,6 +54,7 @@ const description = ref('')
 const difficulty = ref(1)
 const maxClicks = ref(0)
 const color = ref('')
+const isEditing = ref(true)
 
 const id = route.params.id
 
@@ -57,36 +62,18 @@ function updateGameState(values: number[]) {
   Game.updatePlayerState(values)
 }
 
-onMounted(() => {
-  Axios.get(`/Puzzle/${id}`)
-    .then((response) => response.data)
-    .then((puzzle: Puzzle) => {
-      gamePuzzle.value = {
-        id: puzzle.id,
-        title: puzzle.title,
-        description: puzzle.description,
-        difficulty: puzzle.difficulty,
-        size: puzzle.size,
-        creator: puzzle.creator,
-        dateCreated: puzzle.dateCreated,
-        solution: puzzle.solution,
-        color: puzzle.color,
-        maxClicks: puzzle.maxClicks
-      }
-      Game.setSize(gamePuzzle.value!.size)
-      Game.setSolution(JSON.parse(gamePuzzle.value!.solution))
-      Game.SetPuzzle(gamePuzzle.value!)
-      Game.startEditor()
+onMounted(async () => {
+  puzzle.value = await PuzzleUtils.getPuzzleById(toNumber(id))
+  Game.setSize(puzzle.value!.size)
+  Game.setSolution(JSON.parse(puzzle.value!.solution))
+  Game.SetPuzzle(puzzle.value!)
+  Game.startEditor()
 
-      title.value = gamePuzzle.value!.title
-      description.value = gamePuzzle.value!.description
-      difficulty.value = gamePuzzle.value!.difficulty
-      maxClicks.value = gamePuzzle.value!.maxClicks
-      color.value = gamePuzzle.value!.color.toLowerCase()
-    })
-    .catch((error) => {
-      console.error('Error fetching puzzles:', error)
-    })
+  title.value = puzzle.value!.title
+  description.value = puzzle.value!.description
+  difficulty.value = puzzle.value!.difficulty
+  maxClicks.value = puzzle.value!.maxClicks
+  color.value = puzzle.value!.color.toLowerCase()
 })
 
 async function savePuzzle() {

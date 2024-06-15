@@ -5,7 +5,9 @@
       v-for="(item, indexRow) in halfCeiling + props.solution[0].length"
       :key="indexRow"
       no-gutters
-      align="center" justify="center">
+      align="center"
+      justify="center"
+    >
       <v-col
         v-for="(item, indexCol) in halfCeiling + props.solution[0].length"
         :key="indexCol"

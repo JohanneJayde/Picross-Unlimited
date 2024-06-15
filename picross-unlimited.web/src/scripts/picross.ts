@@ -26,7 +26,6 @@ export class Picross {
   }
 
   public async startNewGame() {
-    //init playe states;
     for (let i = 0; i < this.size; i++) {
       this.playerStates[i] = []
       for (let j = 0; j < this.size; j++) {
@@ -63,7 +62,6 @@ export class Picross {
       }
     }
   }
-
   public async SavePuzzle(
     title: string,
     description: string,
