@@ -19,7 +19,7 @@ import Axios from 'axios'
 if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
   Axios.defaults.baseURL = 'https://localhost:7112/'
 } else {
-  Axios.defaults.baseURL = ''
+  Axios.defaults.baseURL = 'https://picrossunlimitedapi.azurewebsites.net'
 }
 
 Axios.defaults.headers.common['Content-Type'] = 'application/json'
