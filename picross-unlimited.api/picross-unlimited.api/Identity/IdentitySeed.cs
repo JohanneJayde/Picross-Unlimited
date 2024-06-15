@@ -85,6 +85,24 @@ public static class IdentitySeed
             }
         }
 
+        if (await userManager.FindByEmailAsync("Spencer@Picross.com") == null)
+        {
+            AppUser user = new AppUser
+            {
+                ProfileColor = "Secondary",
+                ProfileIcon = "\\eb3b",
+                UserName = "Spencer",
+                Email = "Spencer@Picross.com"
+            };
+
+            IdentityResult result = userManager.CreateAsync(user, "P@ssw0rd123").Result;
+
+            if (result.Succeeded)
+            {
+                await userManager.AddToRoleAsync(user, Roles.Admin);
+            }
+        }
+
 
     }
 }
