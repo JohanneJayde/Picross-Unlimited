@@ -7,7 +7,7 @@
       <v-chip variant="tonal" class="ma-1"> Size: {{ props.puzzle.size }} </v-chip>
       <v-chip variant="tonal" class="ma-1"> Creator: {{ props.puzzle.creator }} </v-chip>
       <v-chip variant="tonal" class="ma-1"> {{ formattedDate }} </v-chip>
-      <v-chip variant="tonal" class="ma-1"> Max Clicks; {{ props.puzzle.maxClicks }} </v-chip>
+      <v-chip variant="tonal" class="ma-1"> Max Clicks: {{ props.puzzle.maxClicks }} </v-chip>
     </v-card-item>
     <v-card-item>
       <v-progress-circular :model-value="difficulty * 10" :size="60" :width="10" class="ma-1">

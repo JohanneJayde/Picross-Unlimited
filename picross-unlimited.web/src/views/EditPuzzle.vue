@@ -4,7 +4,7 @@
       <v-card-title>{{ title === '' ? 'Edit Puzzle' : title }}</v-card-title>
     </v-card>
     <v-row>
-      <v-col cols="3">
+      <v-col cols="4">
         <v-card :color="color" class="pa-3 rounded-xl">
           <v-card-title class="text-uppercase text-center">Edit Puzzle</v-card-title>
           <v-text-field v-model="title" label="Title" />
@@ -28,7 +28,7 @@
           @playerUpdate="(values) => updateGameState(values)"
           :mistakeMode="false"
           :loadSolution="isEditing"
-          :correctColor="puzzle.color"
+          :correctColor="color"
         />
       </v-col>
     </v-row>
@@ -77,6 +77,7 @@ onMounted(async () => {
   maxClicks.value = puzzle.value!.maxClicks
   color.value = puzzle.value!.color.toLowerCase()
   solution.value = JSON.parse(puzzle.value!.solution)
+  color.value = puzzle.value!.color
 })
 
 async function savePuzzle() {

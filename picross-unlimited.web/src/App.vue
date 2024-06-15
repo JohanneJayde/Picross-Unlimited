@@ -1,12 +1,18 @@
 <template>
   <v-app>
     <v-app-bar app flat class="border-md">
-      <v-app-bar-nav-icon @click.stop="showDrawer = !showDrawer" />
-      <v-toolbar-title @click="$router.push('/')" style="cursor: pointer">
-        <v-img src="/applogo.svg" alt="Logo" max-width="180" max-height="110"></v-img>
-      </v-toolbar-title>
-      <v-btn v-if="$vuetify.display.smAndUp" @click="showLoginLogOut">
-        <v-icon left>mdi-account-cowboy-hat</v-icon>
+      <template v-slot:prepend>
+        <v-app-bar-nav-icon @click="showDrawer = !showDrawer" />
+      </template>
+
+      <v-img src="/applogo.svg" alt="Logo" max-width="180" max-height="110" />
+      <v-app-bar-title />
+
+      <v-btn
+        v-if="$vuetify.display.smAndUp"
+        @click="showLoginLogOut"
+        prepend-icon="mdi-account-cowboy-hat"
+      >
         {{ tokenService.isLoggedIn() ? tokenService.getUserName() : 'Log In' }}
       </v-btn>
       <v-btn

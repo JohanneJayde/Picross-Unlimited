@@ -21,7 +21,7 @@
               :items="gameStats"
             >
               <template v-slot:item.datePlayed="{ item }">
-                {{ new Date(item.DatePlayed).toLocaleDateString() }}
+                {{ formatDate(new Date(item.datePlayed), 'MMMM do, yyyy') }}
               </template>
               <template v-slot:item.isWin="{ item }">
                 <v-chip :color="item.isWin ? 'success' : 'error'">
@@ -47,7 +47,7 @@
             >
             <v-card-item>
               First Game Played on:
-              {{ _.min(gameStats.map((stats) => stats.DatePlayed)) }}</v-card-item
+              {{ _.min(gameStats.map((stats) => stats.datePlayed)) }}</v-card-item
             >
           </v-card>
         </v-col>
@@ -77,6 +77,7 @@
 </template>
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { formatDate } from 'date-fns'
 import type GameDetail from '@/models/gameDetails'
 import TokenService from '@/scripts/tokenService'
 import type Puzzle from '@/models/puzzle'

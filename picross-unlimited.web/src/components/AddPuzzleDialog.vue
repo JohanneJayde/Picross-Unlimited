@@ -1,9 +1,9 @@
 <template>
   <v-dialog v-model="modelValue">
-    <v-card color="secondary" class="rounded-xl pa-3 mx-auto" width="750">
+    <v-card color="primary" class="rounded-xl pa-3 mx-auto" width="750">
       <v-card-title class="text-center text-uppercase">Create a New Puzzle</v-card-title>
       <v-card-item>
-        <v-row>
+        <v-row class="mt-1">
           <v-col cols="12">
             <v-text-field v-model="title" label="TITLE" variant="outlined" clearable />
           </v-col>
