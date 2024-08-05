@@ -22,7 +22,7 @@ public class Seeder
                 Difficulty = 1,
                 Size = 2,
                 Solution = "[[1,0],[0,1]]",
-                Creator = "Admin@intellitect.com",
+                Creator = "Admin@PicrossUnlimited.com",
                 Color = "green",
                 MaxClicks = 5
             },
@@ -36,7 +36,7 @@ public class Seeder
                 Size = 4,
                 Solution = "[[1,1,1,1],[1,0,0,1],[0,1,1,1],[1,0,1,1]]",
                 DateCreated = DateOnly.FromDateTime(DateTime.Now),
-                Creator = "Admin@intellitect.com",
+                Creator = "Admin@PicrossUnlimited.com",
                 Color = "red",
                 MaxClicks = 30
 
