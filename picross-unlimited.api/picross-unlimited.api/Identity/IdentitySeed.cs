@@ -6,9 +6,14 @@ using Picross_Unlimited.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Picross_Unlimited.Api.Identity;
+
 public static class IdentitySeed
 {
-    public static async Task SeedAsync(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, AppDbContext db)
+    public static async Task SeedAsync(
+        UserManager<AppUser> userManager,
+        RoleManager<IdentityRole> roleManager,
+        AppDbContext db
+    )
     {
         // Seed Roles
         await SeedRolesAsync(roleManager);
@@ -20,25 +25,24 @@ public static class IdentitySeed
     private static async Task SeedRolesAsync(RoleManager<IdentityRole> roleManager)
     {
         // Seed Roles
-        if(!await roleManager.RoleExistsAsync(Roles.Admin))
+        if (!await roleManager.RoleExistsAsync(Roles.Admin))
         {
             await roleManager.CreateAsync(new IdentityRole(Roles.Admin));
         }
-
     }
 
     private static async Task SeedAdminUserAsync(UserManager<AppUser> userManager)
     {
         // Seed Admin User
 
-        if (await userManager.FindByEmailAsync("Admin@Picross.com") == null)
+        if (await userManager.FindByEmailAsync("Admin@PicrossUnlimited.com") == null)
         {
             AppUser user = new AppUser
             {
                 ProfileColor = "Secondary",
                 ProfileIcon = "\\eb3b",
                 UserName = "Admin",
-                Email = "Admin@Picross.com"
+                Email = "Admin@PicrossUnlimited.com"
             };
 
             IdentityResult result = userManager.CreateAsync(user, "P@ssw0rd123").Result;
@@ -49,14 +53,14 @@ public static class IdentitySeed
             }
         }
 
-        if (await userManager.FindByEmailAsync("Johanne@Picross.com") == null)
+        if (await userManager.FindByEmailAsync("Johanne@PicrossUnlimited.com") == null)
         {
             AppUser user = new AppUser
             {
                 ProfileColor = "Secondary",
                 ProfileIcon = "\\eb3b",
                 UserName = "JohanneJayde",
-                Email = "Johanne@Picross.com"
+                Email = "Johanne@PicrossUnlimited.com"
             };
 
             IdentityResult result = userManager.CreateAsync(user, "P@ssw0rd123").Result;
@@ -67,14 +71,14 @@ public static class IdentitySeed
             }
         }
 
-        if (await userManager.FindByEmailAsync("Woobly@Picross.com") == null)
+        if (await userManager.FindByEmailAsync("Woobly@PicrossUnlimited.com") == null)
         {
             AppUser user = new AppUser
             {
                 ProfileColor = "Secondary",
                 ProfileIcon = "\\eb3b",
                 UserName = "Woobly",
-                Email = "Woobly@Picross.com"
+                Email = "Woobly@PicrossUnlimited.com"
             };
 
             IdentityResult result = userManager.CreateAsync(user, "P@ssw0rd123").Result;
@@ -85,14 +89,14 @@ public static class IdentitySeed
             }
         }
 
-        if (await userManager.FindByEmailAsync("Spencer@Picross.com") == null)
+        if (await userManager.FindByEmailAsync("Spencer@PicrossUnlimited.com") == null)
         {
             AppUser user = new AppUser
             {
                 ProfileColor = "Secondary",
                 ProfileIcon = "\\eb3b",
                 UserName = "Spencer",
-                Email = "Spencer@Picross.com"
+                Email = "Spencer@PicrossUnlimited.com"
             };
 
             IdentityResult result = userManager.CreateAsync(user, "P@ssw0rd123").Result;
@@ -102,7 +106,5 @@ public static class IdentitySeed
                 await userManager.AddToRoleAsync(user, Roles.Admin);
             }
         }
-
-
     }
 }

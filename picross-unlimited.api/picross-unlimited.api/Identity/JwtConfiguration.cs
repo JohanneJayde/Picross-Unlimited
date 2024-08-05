@@ -1,4 +1,5 @@
 ﻿namespace Picross_Unlimited.Api.Identity;
+
 public class JwtConfiguration
 {
     public required string Secret { get; set; }
