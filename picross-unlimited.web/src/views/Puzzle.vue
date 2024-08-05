@@ -44,7 +44,7 @@
         <v-card-title v-else class="text-center font-weight-bold"> Sorry You Lost :(</v-card-title>
         <v-card-text class="text-center text-h4"> You Clicked a total of {{ count }}!</v-card-text>
         <v-card-actions class>
-          <v-btn @click="$router.push({ name: 'Puzzles' })">Go Back To Puzzles</v-btn>
+          <v-btn to="/Puzzles">Go Back To Puzzles</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

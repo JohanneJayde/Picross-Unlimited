@@ -60,7 +60,7 @@
               <v-col v-for="(puzzle, i) in puzzles" :key="i">
                 <v-btn
                   :color="puzzle.color"
-                  @click="$router.push({ name: 'Puzzle', params: { id: puzzle.id } })"
+                  :to="{ name: 'Puzzle', params: { id: puzzle.id } }"
                   class="w-100"
                   rounded
                   variant="flat"
