@@ -61,9 +61,11 @@ const showConfirmDialog = ref(false)
 const showPassword = ref(false)
 const userName = ref('')
 const password = ref('')
-const email = ref('')
 const errorMessage = ref('')
-const currentPage = ref(0)
+
+const emits = defineEmits<{
+  (e: 'loginLogout'): void
+}>()
 
 function signIn() {
   errorMessage.value = ''
@@ -75,6 +77,7 @@ function signIn() {
     .then((response) => {
       tokenService.setToken(response.data.token)
       router.push('/')
+      emits('loginLogout')
     })
     .catch((error) => {
       errorMessage.value = error.response.data
@@ -84,6 +87,7 @@ function signIn() {
 function logout() {
   localStorage.removeItem('token')
   localStorage.removeItem('user')
+  emits('loginLogout')
 
   router.push('/')
 }

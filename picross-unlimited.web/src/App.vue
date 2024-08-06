@@ -11,7 +11,7 @@
         max-height="110"
       />
       <v-spacer />
-      <v-menu :close-on-content-click="false">
+      <v-menu :close-on-content-click="false" v-model="showSignInMenu">
         <template v-slot:activator="{ props }">
           <v-btn
             v-bind="props"
@@ -26,7 +26,7 @@
             :icon="tokenService.isLoggedIn() ? 'mdi-account' : 'mdi-login'"
           />
         </template>
-        <SignInMenu />
+        <SignInMenu @loginLogout="showSignInMenu = false" />
       </v-menu>
     </v-app-bar>
     <v-main>
@@ -36,7 +36,7 @@
       <v-list>
         <v-list-item to="/About">About</v-list-item>
         <v-list-item to="/Puzzles">View Puzzles</v-list-item>
-        <v-list-item to="/Player">Profile</v-list-item>
+        <v-list-item to="/Player" v-if="tokenService.isLoggedIn()">Profile</v-list-item>
         <v-list-item to="/PuzzleEditor" v-if="tokenService.isLoggedIn()"
           >Puzzle Creator</v-list-item
         >
@@ -52,6 +52,7 @@ import TokenService from './scripts/tokenService'
 import SignInMenu from '@/components/SignInMenu.vue'
 
 const router = useRouter()
-const showDrawer = ref(true)
+const showDrawer = ref(false)
 const tokenService = new TokenService()
+const showSignInMenu = ref(false)
 </script>
