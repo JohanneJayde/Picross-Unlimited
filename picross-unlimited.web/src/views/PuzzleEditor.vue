@@ -1,23 +1,16 @@
 <template>
-  <v-container v-if="tokenService.isLoggedIn()">
+  <Header title="Puzzle Editor" />
+  <v-container>
     <v-row justify="center">
       <v-col cols="12">
-        <v-card class="pa-3" color="primary">
-          <v-card-title>Puzzle Editor</v-card-title>
-        </v-card>
-      </v-col>
-      <v-col cols="12">
-        <v-btn @click="showAddPuzzleDialog = true" color="primary" rounded>Create Puzzle</v-btn>
+        <v-btn @click="showAddPuzzleDialog = true" color="primary" prepend-icon="mdi-plus"
+          >Create Puzzle</v-btn
+        >
       </v-col>
       <v-col cols="12">
         <PuzzleGroup :puzzles="Puzzles" :edit="true" @deletePuzzle="removePuzzle" />
       </v-col>
     </v-row>
-  </v-container>
-  <v-container v-else>
-    <v-card color="primary" class="pa-3">
-      <v-card-title>Sorry! You Must Be Logged In</v-card-title>
-    </v-card>
   </v-container>
   <AddPuzzleDialog v-model="showAddPuzzleDialog" @close="showAddPuzzleDialog = false" />
 </template>
@@ -29,6 +22,7 @@ import PuzzleGroup from '@/components/PuzzleGroup.vue'
 import TokenService from '@/scripts/tokenService'
 import AddPuzzleDialog from '@/components/AddPuzzleDialog.vue'
 import PuzzleUtils from '@/scripts/puzzleUtils'
+import Header from '@/components/Header.vue'
 
 const tokenService = new TokenService()
 
@@ -38,11 +32,8 @@ const showAddPuzzleDialog = ref(false)
 Puzzles.value = await PuzzleUtils.getUserPuzzles(tokenService.getSub())
 
 function removePuzzle(id: number) {
-  console.log('Deleting puzzle:', id)
   Axios.delete('Puzzle/DeletePuzzle?puzzleId=' + id)
     .then((response) => {
-      console.log('Puzzle deleted:', response.data)
-
       if (response.data) {
         Puzzles.value = Puzzles.value.filter((puzzle) => puzzle.id !== id)
       } else {

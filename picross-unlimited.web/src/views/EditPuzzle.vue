@@ -1,38 +1,38 @@
 <template>
-  <v-container v-if="puzzle">
-    <v-card class="pa-3 mb-5" :color="color">
-      <v-card-title>{{ title === '' ? 'Edit Puzzle' : title }}</v-card-title>
-    </v-card>
-    <v-row>
-      <v-col cols="4">
-        <v-card :color="color" class="pa-3 rounded-xl">
-          <v-card-title class="text-uppercase text-center">Edit Puzzle</v-card-title>
-          <v-text-field v-model="title" label="Title" />
-          <v-textarea v-model="description" label="Description" />
-          <v-text-field v-model="maxClicks" label="Max Clicks" />
-          <v-select v-model="color" :items="htmlColors" label="Colors" />
-          <v-select
-            v-model="difficulty"
-            :items="[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
-            label="Difficulty"
+  <div v-if="puzzle">
+    <Header :color="color" :title="title === '' ? 'Edit Puzzle' : title" />
+    <v-container>
+      <v-row>
+        <v-col cols="4">
+          <v-card :color="color" class="pa-5 rounded-xl">
+            <v-text-field variant="outlined" v-model="title" label="Title" />
+            <v-textarea variant="outlined" v-model="description" label="Description" />
+            <v-text-field variant="outlined" v-model="maxClicks" label="Max Clicks" />
+            <v-select variant="outlined" v-model="color" :items="htmlColors" label="Colors" />
+            <v-select
+              variant="outlined"
+              v-model="difficulty"
+              :items="[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
+              label="Difficulty"
+            />
+            <v-card-actions>
+              <v-spacer />
+              <v-btn variant="outlined" @click="savePuzzle">Save</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+        <v-col cols="auto">
+          <PicrossBoard
+            :solution="solution"
+            @playerUpdate="(values) => updateGameState(values)"
+            :mistakeMode="false"
+            :loadSolution="isEditing"
+            :correctColor="color"
           />
-          <v-card-actions>
-            <v-spacer />
-            <v-btn @click="savePuzzle">Save</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-      <v-col cols="auto">
-        <PicrossBoard
-          :solution="solution"
-          @playerUpdate="(values) => updateGameState(values)"
-          :mistakeMode="false"
-          :loadSolution="isEditing"
-          :correctColor="color"
-        />
-      </v-col>
-    </v-row>
-  </v-container>
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -44,6 +44,7 @@ import { Picross } from '@/scripts/picross'
 import htmlColors from '@/scripts/colors'
 import PuzzleUtils from '@/scripts/puzzleUtils'
 import { toNumber } from 'lodash'
+import Header from '@/components/Header.vue'
 
 const puzzle = ref<Puzzle>()
 const route = useRoute()

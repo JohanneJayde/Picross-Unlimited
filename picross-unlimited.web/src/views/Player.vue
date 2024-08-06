@@ -1,11 +1,8 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <!-- eslint-disable vue/valid-v-slot -->
 <template>
+  <Header :title="`${userName}'s Profile`" />
   <v-container>
-    <v-card class="pa-3 mb-4" color="primary">
-      <v-card-title>{{ userName + "'s Profile" }}</v-card-title>
-    </v-card>
-
     <v-row>
       <v-col cols="6">
         <v-col cols="12">
@@ -45,10 +42,6 @@
               Total Clicks:
               {{ _.sum(gameStats.map((gamestat) => gamestat.numberOfClicks)) }}</v-card-item
             >
-            <v-card-item>
-              First Game Played on:
-              {{ _.min(gameStats.map((stats) => stats.datePlayed)) }}</v-card-item
-            >
           </v-card>
         </v-col>
 
@@ -84,6 +77,7 @@ import type Puzzle from '@/models/puzzle'
 import _ from 'lodash'
 import Axios from 'axios'
 import PuzzleUtils from '@/scripts/puzzleUtils'
+import Header from '@/components/Header.vue'
 
 const tokenService = new TokenService()
 const userName = tokenService.getUserName() ?? 'Guest'
@@ -92,12 +86,9 @@ const gameStats = ref<GameDetail[]>([])
 const puzzles = ref<Puzzle[]>([])
 
 onMounted(async () => {
-  console.log('User:', tokenService.getUserName())
-
   Axios.get('Game/Stats/$' + tokenService.getUserName())
     .then((response) => {
       gameStats.value = response.data
-      console.log('Stats:', gameStats.value)
     })
     .catch((error) => {
       console.error('Error fetching stats:', error)

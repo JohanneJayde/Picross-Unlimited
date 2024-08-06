@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="modelValue">
-    <v-card color="primary" class="rounded-xl pa-3 mx-auto" width="750">
-      <v-card-title class="text-center text-uppercase">Create a New Puzzle</v-card-title>
+    <v-card class="rounded-xl pa-3 mx-auto" width="750">
+      <v-card-title class="text-center">Create a New Puzzle</v-card-title>
       <v-card-item>
         <v-row class="mt-1">
           <v-col cols="12">
@@ -50,8 +50,8 @@
         </v-row>
       </v-card-item>
       <v-card-actions>
-        <v-btn @click="modelValue = false">Cancel</v-btn>
-        <v-btn @click="createPuzzle">Create</v-btn>
+        <v-btn @click="modelValue = false" variant="tonal" color="primary">Cancel</v-btn>
+        <v-btn @click="createPuzzle" variant="flat" color="primary">Create</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -89,7 +89,6 @@ function createPuzzle() {
     maxClicks: maxClicks.value
   })
     .then((response) => {
-      console.log('Puzzle created:', response.data)
       modelValue.value = false
 
       router.push({ name: 'Edit Puzzle', params: { id: response.data } })
