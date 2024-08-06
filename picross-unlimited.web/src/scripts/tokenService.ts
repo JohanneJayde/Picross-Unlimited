@@ -19,8 +19,7 @@ export default class TokenService {
     if (token === '') {
       return 'Guest'
     }
-    console.log(JSON.parse(atob(token.split('.')[1])))
-    return JSON.parse(atob(token.split('.')[1])).userName
+    return JSON.parse(atob(token.split('.')[1])).email
   }
 
   public getSub() {
@@ -28,7 +27,6 @@ export default class TokenService {
     if (token === '') {
       return ''
     }
-    console.log(JSON.parse(atob(token.split('.')[1])))
     return JSON.parse(atob(token.split('.')[1])).sub
   }
   public generateTokenHeader() {

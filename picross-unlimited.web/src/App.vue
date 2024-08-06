@@ -1,13 +1,16 @@
 <template>
   <v-app>
     <v-app-bar app flat class="border-md">
-      <template v-slot:prepend>
-        <v-app-bar-nav-icon @click="showDrawer = !showDrawer" />
-      </template>
-
-      <v-img src="/applogo.svg" alt="Logo" max-width="180" max-height="110" />
-      <v-app-bar-title />
-
+      <v-app-bar-nav-icon @click="showDrawer = !showDrawer" />
+      <v-img
+        @click="router.push('/')"
+        class="cursor-pointer"
+        src="/applogo.svg"
+        alt="Logo"
+        max-width="180"
+        max-height="110"
+      />
+      <v-spacer />
       <v-btn
         v-if="$vuetify.display.smAndUp"
         @click="showLoginLogOut"
@@ -29,7 +32,9 @@
         <v-list-item to="/About">About</v-list-item>
         <v-list-item to="/Puzzles">View Puzzles</v-list-item>
         <v-list-item to="/Player">Profile</v-list-item>
-        <v-list-item to="/PuzzleEditor">Puzzle Creator</v-list-item>
+        <v-list-item to="/PuzzleEditor" v-if="tokenService.isLoggedIn()"
+          >Puzzle Creator</v-list-item
+        >
       </v-list>
     </v-navigation-drawer>
     <SignInDialog v-model="showSignInDialog" />
@@ -51,7 +56,7 @@ import SignInDialog from '@/components/SignInDialog.vue'
 import ConfirmDialog from '@/components/ConfirmDialog.vue'
 
 const router = useRouter()
-const showDrawer = ref(false)
+const showDrawer = ref(true)
 const showSignInDialog = ref(false)
 const showConfirmDialog = ref(false)
 const tokenService = new TokenService()

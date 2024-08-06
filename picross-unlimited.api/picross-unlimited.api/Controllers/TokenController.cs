@@ -53,12 +53,12 @@ namespace Picross_Unlimited.Api.Controllers
                     var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
                     var claims = new List<Claim>
-                {
+                    {
                     new(JwtRegisteredClaimNames.Sub, user.UserName!),
                     new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new("userId", user.Id.ToString()),
-                    new("userName", user.UserName!.ToString().Substring(0,user.UserName.ToString().IndexOf("@"))), // Use the email as the username, but get rid of the email domain
-                };
+                    new("email", user.UserName!.ToString()), 
+                    };
 
                     // Retrieve all roles associated with the user
                     var roles = await _userManager.GetRolesAsync(user);
