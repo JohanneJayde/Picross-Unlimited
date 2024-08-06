@@ -11,18 +11,23 @@
         max-height="110"
       />
       <v-spacer />
-      <v-btn
-        v-if="$vuetify.display.smAndUp"
-        @click="showLoginLogOut"
-        prepend-icon="mdi-account-cowboy-hat"
-      >
-        {{ tokenService.isLoggedIn() ? tokenService.getUserName() : 'Log In' }}
-      </v-btn>
-      <v-btn
-        v-else
-        @click="showLoginLogOut"
-        :icon="tokenService.isLoggedIn() ? 'mdi-account' : 'mdi-login'"
-      />
+      <v-menu :close-on-content-click="false">
+        <template v-slot:activator="{ props }">
+          <v-btn
+            v-bind="props"
+            v-if="$vuetify.display.smAndUp"
+            prepend-icon="mdi-account-cowboy-hat"
+          >
+            {{ tokenService.isLoggedIn() ? tokenService.getUserName() : 'Log In' }}
+          </v-btn>
+          <v-btn
+            v-bind="props"
+            v-else
+            :icon="tokenService.isLoggedIn() ? 'mdi-account' : 'mdi-login'"
+          />
+        </template>
+        <SignInMenu />
+      </v-menu>
     </v-app-bar>
     <v-main>
       <RouterView />
@@ -37,14 +42,6 @@
         >
       </v-list>
     </v-navigation-drawer>
-    <SignInDialog v-model="showSignInDialog" />
-    <ConfirmDialog
-      v-model="showConfirmDialog"
-      message="Are you sure you want to logout?"
-      title="Log Out"
-      action="Log Out"
-      @updated="logout"
-    />
   </v-app>
 </template>
 
@@ -52,27 +49,9 @@
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 import TokenService from './scripts/tokenService'
-import SignInDialog from '@/components/SignInDialog.vue'
-import ConfirmDialog from '@/components/ConfirmDialog.vue'
+import SignInMenu from '@/components/SignInMenu.vue'
 
 const router = useRouter()
 const showDrawer = ref(true)
-const showSignInDialog = ref(false)
-const showConfirmDialog = ref(false)
 const tokenService = new TokenService()
-
-function showLoginLogOut() {
-  if (localStorage.getItem('token')) {
-    showConfirmDialog.value = true
-  } else {
-    showSignInDialog.value = true
-  }
-}
-
-function logout() {
-  localStorage.removeItem('token')
-  localStorage.removeItem('user')
-
-  router.push('/')
-}
 </script>

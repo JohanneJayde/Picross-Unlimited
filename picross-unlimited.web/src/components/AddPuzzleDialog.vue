@@ -89,7 +89,6 @@ function createPuzzle() {
     maxClicks: maxClicks.value
   })
     .then((response) => {
-      console.log('Puzzle created:', response.data)
       modelValue.value = false
 
       router.push({ name: 'Edit Puzzle', params: { id: response.data } })
