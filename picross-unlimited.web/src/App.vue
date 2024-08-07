@@ -29,8 +29,10 @@
       <v-list>
         <v-list-item to="/About">About</v-list-item>
         <v-list-item to="/Puzzles">View Puzzles</v-list-item>
-        <v-list-item to="/Player" v-if="loggedIn">Profile</v-list-item>
-        <v-list-item to="/PuzzleEditor" v-if="loggedIn">Puzzle Creator</v-list-item>
+        <v-list-item to="/Player" v-if="tokenService.isLoggedIn()">Profile</v-list-item>
+        <v-list-item to="/PuzzleEditor" v-if="tokenService.isLoggedIn()"
+          >Puzzle Creator</v-list-item
+        >
       </v-list>
     </v-navigation-drawer>
   </v-app>
@@ -46,8 +48,6 @@ const router = useRouter()
 const showDrawer = ref(false)
 const tokenService = reactive(new TokenService())
 const showSignInMenu = ref(false)
-
-const loggedIn = computed(() => tokenService.isLoggedIn())
 
 const handleLoginLogout = () => {
   showSignInMenu.value = false
