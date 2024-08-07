@@ -13,14 +13,11 @@
       <v-spacer />
       <v-menu :close-on-content-click="false" v-model="showSignInMenu">
         <template v-slot:activator="{ props }">
-          <v-btn
-            v-bind="props"
-            v-if="$vuetify.display.smAndUp"
-            prepend-icon="mdi-account-cowboy-hat"
-          >
-            {{ tokenService.getUserName() }}
-          </v-btn>
-          <v-btn v-bind="props" :icon="loggedIn ? 'mdi-account' : 'mdi-login'" v-else />
+          <v-app-bar-nav-icon>
+            <v-avatar v-bind="props">
+              <v-icon icon="mdi-account" />
+            </v-avatar>
+          </v-app-bar-nav-icon>
         </template>
         <SignInMenu @loginLogout="handleLoginLogout" />
       </v-menu>
