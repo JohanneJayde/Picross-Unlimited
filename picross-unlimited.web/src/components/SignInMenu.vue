@@ -21,6 +21,10 @@
           :append-inner-icon="showPassword ? 'mdi-eye-off-outline' : 'mdi-eye-outline'"
           @click:append-inner="showPassword = !showPassword"
         />
+        <v-card-subtitle>
+          Don't have an account?
+          <router-link to="/Register">Register here!</router-link>
+        </v-card-subtitle>
       </v-card-item>
     </div>
     <v-card-actions>
