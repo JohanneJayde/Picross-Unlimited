@@ -12,7 +12,7 @@
     </v-alert>
     <div v-if="!tokenService.isLoggedIn()">
       <v-card-item>
-        <v-text-field v-model="email" @keyup.stop label="email" />
+        <v-text-field v-model="email" @keyup.stop label="Email" />
         <v-text-field
           v-model="password"
           @keyup.stop
