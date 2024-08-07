@@ -13,20 +13,13 @@
       <v-spacer />
       <v-menu :close-on-content-click="false" v-model="showSignInMenu">
         <template v-slot:activator="{ props }">
-          <v-btn
-            v-bind="props"
-            v-if="$vuetify.display.smAndUp"
-            prepend-icon="mdi-account-cowboy-hat"
-          >
-            {{ tokenService.isLoggedIn() ? tokenService.getUserName() : 'Log In' }}
-          </v-btn>
-          <v-btn
-            v-bind="props"
-            v-else
-            :icon="tokenService.isLoggedIn() ? 'mdi-account' : 'mdi-login'"
-          />
+          <v-app-bar-nav-icon>
+            <v-avatar v-bind="props">
+              <v-icon icon="mdi-account" />
+            </v-avatar>
+          </v-app-bar-nav-icon>
         </template>
-        <SignInMenu @loginLogout="showSignInMenu = false" />
+        <SignInMenu @loginLogout="handleLoginLogout" />
       </v-menu>
     </v-app-bar>
     <v-main>
@@ -47,12 +40,16 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import { ref } from 'vue'
+import { computed, reactive, ref, watch } from 'vue'
 import TokenService from './scripts/tokenService'
 import SignInMenu from '@/components/SignInMenu.vue'
 
 const router = useRouter()
 const showDrawer = ref(false)
-const tokenService = new TokenService()
+const tokenService = reactive(new TokenService())
 const showSignInMenu = ref(false)
+
+const handleLoginLogout = () => {
+  showSignInMenu.value = false
+}
 </script>

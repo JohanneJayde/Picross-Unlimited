@@ -1,5 +1,5 @@
 <template>
-  <v-card :width="tokenService.isLoggedIn() ? '300px' : '500px'" class="pa-3">
+  <v-card v-if="!tokenService.isLoggedIn()" width="500px" class="pa-3">
     <v-alert
       v-if="errorMessage"
       type="error"
@@ -10,30 +10,32 @@
     >
       {{ errorMessage }}
     </v-alert>
-    <div v-if="!tokenService.isLoggedIn()">
-      <v-card-item>
-        <v-text-field v-model="userName" @keyup.stop label="Username" />
-        <v-text-field
-          v-model="password"
-          @keyup.stop
-          label="Password"
-          :type="showPassword ? 'text' : 'password'"
-          :append-inner-icon="showPassword ? 'mdi-eye-off-outline' : 'mdi-eye-outline'"
-          @click:append-inner="showPassword = !showPassword"
-        />
-      </v-card-item>
-    </div>
+    <v-card-item>
+      <v-text-field v-model="email" @keyup.stop label="Email" />
+      <v-text-field
+        v-model="password"
+        @keyup.stop
+        label="Password"
+        :type="showPassword ? 'text' : 'password'"
+        :append-inner-icon="showPassword ? 'mdi-eye-off-outline' : 'mdi-eye-outline'"
+        @click:append-inner="showPassword = !showPassword"
+      />
+      <v-card-subtitle>
+        Don't have an account?
+        <router-link to="/Register">Register here!</router-link>
+      </v-card-subtitle>
+    </v-card-item>
     <v-card-actions>
       <v-spacer />
-      <v-btn
-        v-if="!tokenService.isLoggedIn()"
-        class="w-100"
-        color="primary"
-        variant="flat"
-        @click="signIn"
-        >Sign In</v-btn
-      >
-      <v-btn v-else @click="showConfirmDialog = true" class="w-100" color="primary" variant="flat"
+      <v-btn class="w-100" color="primary" variant="flat" @click="signIn">Sign In</v-btn>
+    </v-card-actions>
+  </v-card>
+  <v-card v-else width="300px" class="pa-3">
+    <v-card-subtitle class="text-center">
+      Welcome {{ tokenService.getUserName() }}!
+    </v-card-subtitle>
+    <v-card-actions>
+      <v-btn @click="showConfirmDialog = true" class="w-100" color="primary" variant="flat"
         >Log Out</v-btn
       >
     </v-card-actions>
@@ -59,7 +61,7 @@ const tokenService = new TokenService()
 const showConfirmDialog = ref(false)
 
 const showPassword = ref(false)
-const userName = ref('')
+const email = ref('')
 const password = ref('')
 const errorMessage = ref('')
 
@@ -71,7 +73,7 @@ function signIn() {
   errorMessage.value = ''
   axios
     .post('/Token/GetToken', {
-      username: userName.value,
+      email: email.value,
       password: password.value
     })
     .then((response) => {

@@ -7,7 +7,7 @@ namespace Picross_Unlimited.Api.Controllers;
 
 [Route("[controller]")]
 [ApiController]
-public class GameController(GameService GameService) : Controller
+public class GameController(GameService GameService) : ControllerBase
 {
     public GameService GameService { get; set; } = GameService;
 

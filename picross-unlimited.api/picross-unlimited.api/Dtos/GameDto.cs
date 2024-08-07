@@ -10,5 +10,5 @@ public class GameDto
     public int NumberOfClicks { get; set; }
     public int PuzzleId { get; set; }
 }
-    
+
 

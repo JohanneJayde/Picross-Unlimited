@@ -27,20 +27,20 @@ public class Seeder
                 MaxClicks = 5
             },
 
-            new()
-            {
+                new()
+                {
 
-                Title = "My Second Puzzle",
-                Description = "Here is my first second puzzle :)",
-                Difficulty = 3,
-                Size = 4,
-                Solution = "[[1,1,1,1],[1,0,0,1],[0,1,1,1],[1,0,1,1]]",
-                DateCreated = DateOnly.FromDateTime(DateTime.Now),
-                Creator = "Admin@PicrossUnlimited.com",
-                Color = "red",
-                MaxClicks = 30
+                    Title = "My Second Puzzle",
+                    Description = "Here is my first second puzzle :)",
+                    Difficulty = 3,
+                    Size = 4,
+                    Solution = "[[1,1,1,1],[1,0,0,1],[0,1,1,1],[1,0,1,1]]",
+                    DateCreated = DateOnly.FromDateTime(DateTime.Now),
+                    Creator = "Admin@PicrossUnlimited.com",
+                    Color = "red",
+                    MaxClicks = 30
 
-            }
+                }
 
             ];
 

@@ -7,7 +7,7 @@ namespace Picross_Unlimited.Api.Controllers;
 
 [Route("[controller]")]
 [ApiController]
-public class PuzzleController(PuzzleService PuzzleService) : Controller
+public class PuzzleController(PuzzleService PuzzleService) : ControllerBase
 {
    PuzzleService PuzzleService { get; set; } = PuzzleService;
 
