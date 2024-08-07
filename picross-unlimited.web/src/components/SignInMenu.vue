@@ -12,7 +12,7 @@
     </v-alert>
     <div v-if="!tokenService.isLoggedIn()">
       <v-card-item>
-        <v-text-field v-model="userName" @keyup.stop label="Username" />
+        <v-text-field v-model="email" @keyup.stop label="email" />
         <v-text-field
           v-model="password"
           @keyup.stop
@@ -63,7 +63,7 @@ const tokenService = new TokenService()
 const showConfirmDialog = ref(false)
 
 const showPassword = ref(false)
-const userName = ref('')
+const email = ref('')
 const password = ref('')
 const errorMessage = ref('')
 
@@ -75,7 +75,7 @@ function signIn() {
   errorMessage.value = ''
   axios
     .post('/Token/GetToken', {
-      username: userName.value,
+      email: email.value,
       password: password.value
     })
     .then((response) => {

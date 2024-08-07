@@ -126,7 +126,7 @@ namespace Picross_Unlimited.Api.Services
             var addedPuzzle = Db.Puzzles.FirstAsync(puzzle => puzzle.Creator == puzzleDto.Creator && puzzle.Title == puzzleDto.Title);
 
             int Id = addedPuzzle.Result.PuzzleId;
-            
+
             return Id;
         }
 
@@ -134,7 +134,7 @@ namespace Picross_Unlimited.Api.Services
         {
             var puzzle = await Db.Puzzles.FirstOrDefaultAsync(puzzle => puzzle.PuzzleId == puzzleId);
 
-            if(puzzle is null)
+            if (puzzle is null)
             {
                 return false;
             }

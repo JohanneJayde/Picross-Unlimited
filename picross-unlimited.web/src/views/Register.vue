@@ -8,6 +8,7 @@
               <v-icon icon="mdi-account" /> Register for an Account</v-card-title
             >
           </v-sheet>
+          <v-alert type="error" v-if="errorMessage" closable>{{ errorMessage }}</v-alert>
           <v-card-item class="mt-3">
             <v-form v-model="form">
               <v-card-subtitle>Email</v-card-subtitle>
@@ -77,6 +78,9 @@
 </template>
 
 <script setup lang="ts">
+import router from '@/router'
+import TokenService from '@/scripts/tokenService'
+import Axios from 'axios'
 import { ref } from 'vue'
 
 const showPassword = ref(false)
@@ -85,6 +89,9 @@ const password = ref<string>('')
 const confirmPassword = ref<string>('')
 
 const email = ref<string>('')
+const errorMessage = ref<string | null>(null)
+
+const tokenService = new TokenService()
 
 const form = ref(false)
 
@@ -104,5 +111,33 @@ const confirmPasswordRules = [
   (passwordValue: string) => passwordValue === password.value || 'Passwords do not match'
 ]
 
-function register() {}
+function register() {
+  Axios.post('/Account/Register/', {
+    username: userName.value,
+    password: password.value,
+    email: email.value
+  })
+    .then(() => {
+      signIn()
+    })
+    .catch((error) => {
+      errorMessage.value = error.response.data
+    })
+}
+
+function signIn() {
+  errorMessage.value = ''
+  Axios.post('/Token/GetToken', {
+    email: email.value,
+    password: password.value
+  })
+    .then((response) => {
+      tokenService.setToken(response.data.token)
+      errorMessage.value = null
+      router.push('/')
+    })
+    .catch((error) => {
+      errorMessage.value = error.response.data
+    })
+}
 </script>

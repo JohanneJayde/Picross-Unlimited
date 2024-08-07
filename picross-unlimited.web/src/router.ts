@@ -6,42 +6,42 @@ const router = createRouter({
     {
       path: '/',
       name: 'Home',
-      component: import('@/views/index.vue')
+      component: () => import('@/views/index.vue')
     },
     {
       path: '/About',
       name: 'About',
-      component: import('@/views/About.vue')
+      component: () => import('@/views/About.vue')
     },
     {
       path: '/Player',
       name: 'Player',
-      component: import('@/views/Player.vue')
+      component: () => import('@/views/Player.vue')
     },
     {
       path: '/Puzzles',
       name: 'Puzzles',
-      component: import('@/views/Puzzles.vue')
+      component: () => import('@/views/Puzzles.vue')
     },
     {
       path: '/Puzzle/:id',
       name: 'Puzzle',
-      component: import('@/views/Puzzle.vue')
+      component: () => import('@/views/Puzzle.vue')
     },
     {
       path: '/PuzzleEditor',
       name: 'Puzzle Editor',
-      component: import('@/views/PuzzleEditor.vue')
+      component: () => import('@/views/PuzzleEditor.vue')
     },
     {
       path: '/EditPuzzle/:id',
       name: 'Edit Puzzle',
-      component: import('@/views/EditPuzzle.vue')
+      component: () => import('@/views/EditPuzzle.vue')
     },
     {
       path: '/Register',
       name: 'Register',
-      component: import('@/views/Register.vue')
+      component: () => import('@/views/Register.vue')
     }
   ]
 })

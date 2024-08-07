@@ -21,5 +21,5 @@ public class Puzzle
     public string Solution { get; set; } = null!;
     public string Creator { get; set; } = null!;
 
-    }
+}
 
